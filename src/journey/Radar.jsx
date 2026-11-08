@@ -20,7 +20,7 @@ export function RouteLine() {
   );
 }
 
-// GTA-style radar: the map slides and turns under a fixed player arrow, heading always up
+// Game-style radar: the map slides and turns under a fixed player arrow, heading always up
 export default function Radar({ pose, layout, onOpen }) {
   const D = layout.radar;
   const zoom = D / 2 / 105;
@@ -41,7 +41,7 @@ export default function Radar({ pose, layout, onOpen }) {
                 <m.g key={st.id} style={{ rotate: upright }}>
                   <circle cx={bx} cy={by} r="14" className="blip" />
                   <text x={bx} y={by + 1} className="blip-text" textAnchor="middle" dominantBaseline="central">
-                    {st.id[0].toUpperCase()}
+                    {st.id === 'skills' ? '★' : st.id[0].toUpperCase()}
                   </text>
                 </m.g>
               );

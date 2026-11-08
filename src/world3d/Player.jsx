@@ -94,7 +94,18 @@ export default function Player({ s, ride, focus, mode, input, pose, onZone, onRe
     if (mode === 'tour') {
       // Scrolling only sets where to go; the vehicle drives there: ease up to the tour pace, cruise,
       // then brake to stop exactly on the mark
-      const goal = lengthAtStop(s.get());
+      // The scroll position can briefly be NaN while the page is still being measured on load. Keep the
+      // last good value, and if the position ever went bad, start again from the goal: one NaN would
+      // otherwise stick forever and black out the whole scene.
+      const raw = s.get();
+      if (Number.isFinite(raw)) c.goalS = raw;
+      const goal = lengthAtStop(c.goalS ?? 0);
+      if (![c.L, c.tv, c.lane, c.laneVel, c.yaw].every(Number.isFinite)) {
+        c.L = null;
+        c.lane = LANE;
+        c.dir = 1;
+        c.yaw = 0;
+      }
       if (c.L == null || c.mode !== 'tour') {
         c.L = goal;
         c.tv = 0;
@@ -317,13 +328,20 @@ export default function Player({ s, ride, focus, mode, input, pose, onZone, onRe
       o.pitch = damp(o.pitch, 0, 1.6, dt);
     }
     o.yaw = wrapAngle(o.yaw);
+    // A bad value in the camera's smoothing would also stick; snap it fresh instead
+    const camBroken = ![c.framing, c.focus, c.camYaw ?? 0, c.camReach ?? 0, c.camHeight ?? 0].every(Number.isFinite);
+    if (camBroken) {
+      c.framing = 0;
+      c.focus = 0;
+      c.camYaw = null;
+    }
     c.framing = damp(c.framing, parked ? 1 : 0, 2.5, dt);
     const back = (10 - c.framing) * (1 - o.pitch * 0.15);
     const height = 6.2 + c.framing * 1.6 + o.pitch * 9;
     const ahead = 11 + c.framing * 3;
     // The camera's angle around the vehicle is smoothed as an angle, so swinging round (by dragging or
     // as the vehicle turns) follows a circle instead of cutting straight across over the roof
-    const snap = !cam.current.init || teleported;
+    const snap = !cam.current.init || teleported || camBroken;
     const aim = c.yaw + o.yaw;
     c.camYaw = snap || c.camYaw == null ? aim : dampAngle(c.camYaw, aim, o.dragging ? 14 : 4.5, dt);
     const fx = Math.sin(c.camYaw);

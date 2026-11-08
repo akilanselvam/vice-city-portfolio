@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react';
 import { Mouse, Play } from 'lucide-react';
-import { profile } from '../data/portfolio.js';
+import { profile } from '../data/content.jsx';
 import { useTheme } from '../theme/ThemeContext.jsx';
 
 // Scale the title screen down just enough to fit its panel, which ends above the radar.
@@ -31,7 +31,7 @@ function useFitToPanel(ref, deps) {
 const MENU = [
   { label: 'Start game', stop: 1 },
   { label: 'About', stop: 1 },
-  { label: 'Skills', stop: 2 },
+  { label: 'Certifications', stop: 2 },
   { label: 'Projects', stop: 3 },
   { label: 'Experience', stop: 4 },
   { label: 'Contact', stop: 5 },
@@ -57,6 +57,7 @@ export default function HomeStop({ travelTo, openMap }) {
             Portfolio
           </span>
         </div>
+        <p className="home-headline">{profile.headline}</p>
         <p className="tagline">
           {profile.tagline.map((line) => (
             <span key={line}>{line}</span>

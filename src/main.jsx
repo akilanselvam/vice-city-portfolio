@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import './theme-medieval.css';
 import './theme-space.css';
+import './phone.css';
 import App from './App.jsx';
 import { ThemeProvider, initialTheme } from './theme/ThemeContext.jsx';
 import { loadKit } from './world3d/kits.js';

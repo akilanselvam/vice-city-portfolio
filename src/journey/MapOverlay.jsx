@@ -1,14 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { m, useTransform } from 'framer-motion';
-import { Briefcase, Code2, Flag, Gamepad2, Mail, Rocket, User, X } from 'lucide-react';
+import { Award, Briefcase, Flag, Gamepad2, Mail, Rocket, User, X } from 'lucide-react';
 import MapArt from '../components/MapArt.jsx';
 import { useTheme } from '../theme/ThemeContext.jsx';
 import { RouteLine } from './Radar.jsx';
 import { MAP_POINTS } from './route.js';
 import useScrollLock from './useScrollLock.js';
 
-const ICONS = { home: Flag, about: User, skills: Code2, projects: Rocket, experience: Briefcase, contact: Mail, freeroam: Gamepad2 };
+const ICONS = { home: Flag, about: User, skills: Award, projects: Rocket, experience: Briefcase, contact: Mail, freeroam: Gamepad2 };
 
 export default function MapOverlay({ pose, current, onClose, onTravel }) {
   const { copy, stops } = useTheme();

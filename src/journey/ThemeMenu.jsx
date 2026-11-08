@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
 import { Castle, Check, ChevronDown, Rocket, TreePalm } from 'lucide-react';
-import { THEMES, THEME_ORDER } from '../theme/themes.js';
-import { useTheme } from '../theme/ThemeContext.jsx';
+import { THEME_ORDER } from '../theme/themes.js';
+import { themeCopy, useTheme } from '../theme/ThemeContext.jsx';
 import { ensureThemeFonts } from '../theme/fonts.js';
 
 export const THEME_ICONS = { vice: TreePalm, medieval: Castle, space: Rocket };
@@ -11,7 +11,7 @@ export const THEME_ICONS = { vice: TreePalm, medieval: Castle, space: Rocket };
 export function ThemeOptions({ onPick, className = 'theme-option', role = 'menuitemradio', itemRef }) {
   const { id: active } = useTheme();
   return THEME_ORDER.map((id, i) => {
-    const t = THEMES[id];
+    const t = themeCopy(id);
     const Icon = THEME_ICONS[id];
     const on = id === active;
     return (
@@ -86,11 +86,11 @@ export default function ThemeMenu({ onSwitch }) {
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="menu"
         aria-expanded={open}
-        aria-label={`Theme: ${THEMES[id].name}. Choose a theme`}
+        aria-label={`Theme: ${themeCopy(id).name}. Choose a theme`}
         title="Choose a theme"
       >
         <Icon size={18} aria-hidden="true" />
-        <span className="theme-label">{THEMES[id].switchLabel}</span>
+        <span className="theme-label">{themeCopy(id).switchLabel}</span>
         <ChevronDown size={16} className="theme-chevron" aria-hidden="true" />
       </button>
       <AnimatePresence>

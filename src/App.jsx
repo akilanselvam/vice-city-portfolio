@@ -6,27 +6,28 @@ import Radar from './journey/Radar.jsx';
 import MapOverlay from './journey/MapOverlay.jsx';
 import ThemeTransition from './journey/ThemeTransition.jsx';
 import AreaToast from './journey/AreaToast.jsx';
+import LoadingScreen from './journey/LoadingScreen.jsx';
 import DriveControls from './journey/DriveControls.jsx';
+import MarkerLabels from './journey/MarkerLabels.jsx';
 import useDriveInput from './journey/useDriveInput.js';
 import useScrollLock from './journey/useScrollLock.js';
 import { LAST_STOP, useJourney } from './journey/useJourney.js';
 import { nearestStop } from './journey/route.js';
 import { MAP_POINTS } from './city/layout.js';
-import { store } from './world3d/store.js';
 import HomeStop from './stops/HomeStop.jsx';
 import AboutStop from './stops/AboutStop.jsx';
-import SkillsStop from './stops/SkillsStop.jsx';
+import CertificationsStop from './stops/CertificationsStop.jsx';
 import ProjectsStop from './stops/ProjectsStop.jsx';
 import ExperienceStop from './stops/ExperienceStop.jsx';
 import ContactStop from './stops/ContactStop.jsx';
 import FreeRoamStop from './stops/FreeRoamStop.jsx';
-import { profile } from './data/portfolio.js';
+import { profile } from './data/content.jsx';
 import { useTheme } from './theme/ThemeContext.jsx';
 import { loadKit } from './world3d/kits.js';
 import { ensureThemeFonts } from './theme/fonts.js';
 
 const World3D = lazy(() => import('./world3d/World3D.jsx'));
-const STOP_VIEWS = [HomeStop, AboutStop, SkillsStop, ProjectsStop, ExperienceStop, ContactStop, FreeRoamStop];
+const STOP_VIEWS = [HomeStop, AboutStop, CertificationsStop, ProjectsStop, ExperienceStop, ContactStop, FreeRoamStop];
 // freeNear value meaning "we're on the tour, use scroll position"
 const TOUR = -2;
 
@@ -55,7 +56,7 @@ function panelOpenness(index, v, near) {
 // the closed stop's index, or -1); it opens again on the next arrival.
 // focus is the stop whose pit-stop cart the camera has swung round to (-2 = no 3D scene, don't wait).
 // Sections other than the title wait for that before opening.
-function Stop({ index, s, freeNear, closed, focus, onClose, layout, children }) {
+function Stop({ index, s, freeNear, closed, focus, onClose, layout, panelHeight, children }) {
   const { stops } = useTheme();
   const target = useTransform([s, freeNear, closed, focus], ([v, near, shut, f]) => {
     if (shut === index) return 0;
@@ -76,7 +77,7 @@ function Stop({ index, s, freeNear, closed, focus, onClose, layout, children }) 
     <m.section
       className={`stop stop-${stops[index].id}`}
       aria-label={stops[index].area}
-      style={{ opacity, y, visibility, pointerEvents, top: layout.panelTop, height: layout.panelMax }}
+      style={{ opacity, y, visibility, pointerEvents, top: layout.panelTop, height: panelHeight }}
     >
       <div className="stop-inner">
         <div className="stop-frame">
@@ -119,6 +120,8 @@ export default function App() {
   const [ready, setReady] = useState(false);
   const [fading, setFading] = useState(false);
   const arrivedRef = useRef(arrival.index);
+  // True once the vehicle has pulled away from the stop it last arrived at (hides the next-stop button)
+  const [departed, setDeparted] = useState(false);
   const freeNear = useMotionValue(TOUR);
   const px = useMotionValue(MAP_POINTS.home[0]);
   const py = useMotionValue(MAP_POINTS.home[1]);
@@ -157,6 +160,8 @@ export default function App() {
       const url = nearest === 0 ? window.location.pathname + window.location.search : `#/${stops[nearest].id}`;
       window.history.replaceState(null, '', url);
     }
+    // After any arrival above, so it compares against the stop just reached
+    setDeparted(Math.abs(v - arrivedRef.current) > 0.05);
   });
 
   const onZone = useCallback(
@@ -173,7 +178,7 @@ export default function App() {
     [freeNear, announce, closed, reopenStop],
   );
 
-  // Fade to black, swap the world state, fade back in: a GTA "skip trip"
+  // Fade to black, swap the world state, fade back in: a quick "skip trip"
   const cut = useCallback((fn) => {
     setFading(true);
     window.setTimeout(() => {
@@ -340,6 +345,9 @@ export default function App() {
   }, [endSwitch]);
 
   const height = layout ? layout.h + LAST_STOP * layout.seg + Math.round(layout.h * 0.15) : undefined;
+  // Phones keep room above the radar for the free-roam touch pads; on the tour there are none, so the
+  // panels can reach down to just above the radar
+  const panelHeight = layout ? (layout.mobile && !free ? layout.h - layout.radar - 14 - 12 - layout.panelTop : layout.panelMax) : 0;
 
   return (
     <LazyMotion features={domAnimation} strict>
@@ -376,22 +384,9 @@ export default function App() {
                   />
                 </Suspense>
               </WorldBoundary>
-              <div className="marker-labels" aria-hidden="true">
-                {stops.map((st, i) => (
-                  <div
-                    key={st.id}
-                    ref={(el) => {
-                      store.labels[i] = el;
-                    }}
-                    className="marker-label"
-                  >
-                    <span className="marker-letter display">{st.id[0]}</span>
-                    <span className="marker-name display">{st.area}</span>
-                  </div>
-                ))}
-              </div>
+              <MarkerLabels stops={stops} />
               {STOP_VIEWS.map((View, i) => (
-                <Stop key={stops[i].id} index={i} s={ride} freeNear={freeNear} closed={closed} focus={focus} onClose={closeStop} layout={layout}>
+                <Stop key={stops[i].id} index={i} s={ride} freeNear={freeNear} closed={closed} focus={focus} onClose={closeStop} layout={layout} panelHeight={panelHeight}>
                   <View travelTo={goTo} openMap={openMap} onFreeRoam={enterFree} />
                 </Stop>
               ))}
@@ -417,17 +412,19 @@ export default function App() {
               </AnimatePresence>
               <HudBar s={ride} current={current} travelTo={goTo} openMap={openMap} free={free} onToggleFree={toggleFree} onSwitchTheme={switchTheme} />
               <Radar pose={pose} layout={layout} onOpen={openMap} />
-              <AreaToast key={arrival.n} stop={stops[arrival.index]} />
+              <AreaToast
+                key={arrival.n}
+                stop={stops[arrival.index]}
+                next={arrival.index < LAST_STOP ? stops[arrival.index + 1] : null}
+                verb={copy.travelVerb}
+                onNext={free || departed ? undefined : () => travelTo(arrival.index + 1)}
+              />
               {free && <DriveControls input={input} />}
             </>
           )}
           <AnimatePresence>
             {!ready && (
-              <m.div className="loading-screen" exit={{ opacity: 0 }} transition={{ duration: 0.6 }}>
-                <span className="loading-mark display">{copy.logoMark}</span>
-                <p className="loading-text display">{copy.loading}</p>
-                <span className="loading-bar" />
-              </m.div>
+              <LoadingScreen key="loading" theme={theme} copy={copy} />
             )}
           </AnimatePresence>
           <m.div className="cut" animate={{ opacity: fading ? 1 : 0 }} transition={{ duration: 0.3 }} aria-hidden="true" />

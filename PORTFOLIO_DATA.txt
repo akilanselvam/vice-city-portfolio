@@ -1,0 +1,147 @@
+AKILAN SELVAM — PORTFOLIO CONTENT EXTRACTION
+Source: D:\New Portfolio\AkilanSelvam\akilanselvam-portfolio\src
+
+IDENTITY
+Name: Akilan Selvam
+Professional title: FullStack Developer
+
+PROFILE / ABOUT
+The source portfolio describes Akilan as a full stack developer with nearly 5 years of comprehensive experience, specializing in robust and scalable web applications. It lists experience with the MERN stack (MongoDB, Express.js, React, Node.js), Spring Framework and Spring Boot, TypeScript, Angular, and Docker. It emphasizes clean, efficient code, performance optimization, user experience, delivering high-quality software, working in dynamic, fast-paced environments, and continuous learning through side projects.
+
+HERO COPY
+“Hi, I'm Akil, your friendly neighbourhood coder!”
+“Found 0 vulnerabilities — in code and in the heart ;)”
+
+Note: Another unused hero component contains template placeholder copy (“[Your Name]”, “Expert in JavaScript, React, and Node.js”, “On a mission to write clean and efficient code”). These are not personalized and should not be treated as verified bio statements.
+
+WORK EXPERIENCE
+1. Accenture Solutions Private Limited — Chennai
+   Role: Software Engineer
+   Dates: 2023–present (as written in the source)
+   Area: Fullstack Java/MERN
+
+2. Cognizant Technology Solutions — Chennai
+   Role: Associate (SE)
+   Dates: 2020–2023
+   Area: Fullstack Java
+
+EDUCATION AND TRAINING
+1. Christ College of Engineering and Technology — Puducherry
+   Degree: Bachelor of Technology
+   Course: Computer Science and Engineering
+   Dates: 2016–2020
+
+2. Seventh Day Higher Secondary School — Puducherry
+   Qualification: State Board, HSC/Biology
+   Dates: 2015–2016
+
+3. Seventh Day Higher Secondary School — Puducherry
+   Qualification: State Board, SSLC
+   Dates: 2013–2014
+
+4. Bright Tech Training Institute — Puducherry
+   Qualification: Diploma, Computer Hardware and Software
+   Dates: 2013–2014
+
+5. Bright Tech Training Institute — Puducherry
+   Qualification: Diploma, Desktop Publishing
+   Dates: 2012–2013
+
+SKILLS AND TOOLS
+Web / frontend: HTML5, CSS3, JavaScript, React, Angular, Redux Toolkit, Tailwind CSS, Bootstrap
+Backend / frameworks: Node.js, Express.js, PHP, Java, Spring Framework, Spring Boot
+Data: MongoDB, MySQL, Firebase
+Cloud / DevOps: Microsoft Azure, Docker, Git
+3D / creative / design: Three.js, Figma, Adobe Illustrator
+Other tools/technologies shown in source: WordPress
+
+CERTIFICATIONS
+Microsoft Azure / Credly:
+- AZ-400 — DevOps Engineer Expert: https://www.credly.com/badges/926b8ca6-15e9-4bb8-bc42-78c6f11ed37e/public_url
+- AZ-204 — Azure Developer Associate: https://www.credly.com/badges/05cfc685-103a-4a11-9ecd-d8d85b77bf8a/public_url
+- AZ-900 — Azure Fundamentals: https://www.credly.com/badges/ce68d2dc-cdbb-4ae1-95cb-86078de98060/public_url
+- DP-900 — Azure Data Fundamentals: https://www.credly.com/badges/4a73a07c-4435-4172-b6d1-e67548b15814/public_url
+
+MongoDB University:
+- M220J — MongoDB for Java Developers: https://university.mongodb.com/course_completion/a516e3db-186e-4c3a-9442-ab7d6899ddaa/printable?format=img
+- M001 — MongoDB Basics: https://university.mongodb.com/course_completion/2fefd522-60b5-4b38-a3c4-9b2177be00ce/printable?format=img
+
+Udemy:
+- Node.js, Express, MongoDB & More: The Complete Bootcamp 2022: https://www.udemy.com/certificate/UC-39ef8736-08a9-4646-b450-2ffaa9c71f45/
+- AWS Essentials: https://www.udemy.com/certificate/UC-e9710687-62d9-486b-b03a-18332594ff69/
+- The Complete Agile Scrum Fundamentals Course: https://www.udemy.com/certificate/UC-ebec842e-41e2-46f8-81c3-2f62aa03ad37/
+
+PROJECTS / PORTFOLIO ITEMS
+1. Spins Now App
+   Website: https://spinsnowapp.web.app/
+   Image listed in source: https://i.ibb.co/3C8hszv/123.jpg
+   Card title: “Instant Help at Your Fingertips”
+   Card date: Apr 4, 2024
+
+2. Ravi Plumbing Services
+   Website: https://raviplumbingservices.com/
+   Source code: https://github.com/akilanselvam/RaviPlumbingServices-FrontEnd.git
+   Image listed in source: https://i.ibb.co/wyvPqz4/portfolio-Imge7.jpg
+   Card date: Mar 29, 2023 (PortfolioPage also lists 19/03/2024 in its publishDate field)
+
+3. Jaanavi Constructions
+   Website: https://jaanaviconstructions.com/
+   Image listed in source: https://jaanaviconstructions.com/static/media/PHOTO-2022-12-07-02-04-03.ccc140c879fb9db3b511.jpg
+   Card date: Nov 16, 2022
+
+4. Life Hack Hub
+   Website: https://lifehacksforall.web.app/
+   Image listed in source: https://i.ibb.co/GdLHDTF/LHpic.jpg
+
+5. L.T.E. — MERN (Let’s Tweet Everyone)
+   Source code: https://github.com/akilanselvam/Lets-Tweet-Everyone
+   Image listed in source: https://i.ibb.co/pJkh8Mm/portfolio-Imge3.jpg
+
+6. F.Y.D. — React (Find Your Dog)
+   Source code: https://github.com/akilanselvam/Find-Your-Dog
+   Image listed in source: https://i.ibb.co/JxHybXq/portfolio-Imge2.jpg
+
+7. S.I.M. — MERN (Student Info Management)
+   Source code: https://github.com/akilanselvam/Student-Info-Management
+   Image listed in source: https://i.ibb.co/N6Q5JC5/portfolio-Imge4.jpg
+
+8. A.M.A. — MERN (Anime Merch)
+   Source code: https://github.com/akilanselvam/anime_merch
+   Image listed in source: https://i.ibb.co/DRkwmBm/portfolio-Imge1.jpg
+
+9. F.S.O. — Node.js (Farm Store)
+   Source code: https://github.com/akilanselvam/Farm-Store/
+   Image listed in source: https://i.ibb.co/HGKnwhm/portfolio-Imge5.jpg
+
+10. N.T.B. — Node.js (Natours Tour Booking)
+    Source code: https://github.com/akilanselvam/Natours-Tour-Booking
+    Image listed in source: https://i.ibb.co/fNy0F8d/portfolio-Imge6.jpg
+
+PROJECT ACHIEVEMENTS / CASE STUDIES
+AI-Driven Data Categorization
+Developed an application that uses a fine-tuned BERT model to categorize data. Used a Kaggle dataset for training and deployed the model on Hugging Face for real-time classification through API calls. The source says the solution improves data organization and system intelligence.
+
+Modernized Legacy System
+Transformed a monolithic application into microservices and deployed on Azure DevOps. The source says this enabled seamless integration, reduced build time, automated processes with custom pipeline scripts, supported a robust MVC architecture, and removed hard-coded dependencies.
+
+SOCIAL / CONTACT LINKS
+GitHub: https://github.com/akilanselvam
+LinkedIn: https://www.linkedin.com/in/akilan-selvam-18293a171
+Discord: https://discordapp.com/users/8924/
+Instagram: https://www.instagram.com/akilan_selvam_/
+
+Download CV link in source: https://drive.google.com/uc?export=download&id=1emBbO7b3uln4-2eMg3soAEADUBkxihAv
+
+OTHER SOURCE COPY
+Portfolio section headings: “Epic Quests of Code”, “Behold My Creations”, “Gaze Upon My Splendor”.
+Skills heading: “Weapons I Wield in the Battle of Development”. Supporting copy: “Behold the tools that keep me sane-ish while I navigate the chaotic realm of coding. Because who needs sleep anyway?”
+Closing text thanks visitors for exploring the portfolio and invites them to find Akilan on the listed platforms.
+
+SOURCE DATA THAT MAY BE TEMPLATE OR INCONSISTENT
+- The constants file also contains a separate, generic template dataset: Restaurant App, Portfolio, and Fitness Website, all with links under the unrelated GitHub account “zeph1697”. Treat these as inherited sample data, not Akilan’s projects.
+- The constants file includes testimonials attributed to Son Anh Nguyen (CFO, HA Smart), Huyen Trang Nguyen (COO, DEF Corp), and Ly Nguyen (CTO, Sunhouse Co., LTD). They may be template content; verify before reuse.
+- Generic experience entries in the same constants file claim Web Application Develop (React), UI/UX Design (Figma), Graphic Illustration Design (Adobe Creative Cloud), and Video & Content Edit (YouTube & TikTok), with dates 2021–present, 2021–present, 2018–present, and 2015–present. These conflict with the detailed Accenture/Cognizant timeline and may be template data.
+- The source says “nearly 5 years” experience while its dated employment history spans 2020–present; retain the claim only after updating it to the current, accurate total.
+- Portfolio card dates and titles are inconsistently populated, and repeated “Instant Help at Your Fingertips” titles appear for unrelated entries. Confirm details before presenting them as factual project descriptions.
+
+END OF EXTRACTED CONTENT

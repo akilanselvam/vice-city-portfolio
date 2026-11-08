@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, m, useTransform } from 'framer-motion';
-import { Coins, Gamepad2, Map as MapIcon, Medal, Menu, Star, X } from 'lucide-react';
-import ThemeMenu, { ThemeOptions } from './ThemeMenu.jsx';
+import { m, useTransform } from 'framer-motion';
+import { Coins, Gamepad2, Map as MapIcon, Medal, Star, X } from 'lucide-react';
+import ThemeMenu from './ThemeMenu.jsx';
 import { useTheme } from '../theme/ThemeContext.jsx';
 
 const CASH = 1234567;
@@ -29,23 +29,10 @@ const PURSE_ICONS = { medieval: Coins, space: Medal };
 export default function HudBar({ s, current, travelTo, openMap, free, onToggleFree, onSwitchTheme }) {
   const { id: theme, copy, stops } = useTheme();
   const PurseIcon = PURSE_ICONS[theme];
-  const [drawer, setDrawer] = useState(false);
   const cash = useCountUp(CASH);
   // Section links appear once you pull away from the title screen, which has its own menu
   const linksOpacity = useTransform(s, [0, 0.6], [0, 1]);
   const linksVisibility = useTransform(s, (v) => (v < 0.05 ? 'hidden' : 'visible'));
-
-  useEffect(() => {
-    if (!drawer) return;
-    const onKey = (e) => e.key === 'Escape' && setDrawer(false);
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [drawer]);
-
-  const go = (i) => {
-    setDrawer(false);
-    travelTo(i);
-  };
 
   return (
     <header className="hud-top">
@@ -73,9 +60,6 @@ export default function HudBar({ s, current, travelTo, openMap, free, onToggleFr
         <span className="free-label">{free ? 'Back to tour' : copy.freeOff}</span>
       </button>
       <ThemeMenu onSwitch={onSwitchTheme} />
-      <button className="icon-btn nav-burger" onClick={() => setDrawer(true)} aria-label="Open menu" aria-expanded={drawer}>
-        <Menu size={20} />
-      </button>
 
       {PurseIcon ? (
         <div className="hud-cash" role="img" aria-label={`${copy.purse}: ${CASH.toLocaleString('en-US')} ${copy.currency}`}>
@@ -95,60 +79,6 @@ export default function HudBar({ s, current, travelTo, openMap, free, onToggleFr
         </div>
       )}
 
-      <AnimatePresence>
-        {drawer && (
-          <m.div className="drawer-backdrop" onClick={() => setDrawer(false)} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <m.nav
-              className="drawer"
-              aria-label="Fast travel"
-              onClick={(e) => e.stopPropagation()}
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'tween', duration: 0.25 }}
-            >
-              <div className="drawer-head">
-                <span className="display">Pause menu</span>
-                <button className="icon-btn" onClick={() => setDrawer(false)} aria-label="Close menu" autoFocus>
-                  <X size={20} />
-                </button>
-              </div>
-              {stops.map((st, i) => (
-                <button key={st.id} className={`drawer-link${i === current ? ' active' : ''}`} onClick={() => go(i)}>
-                  {i === 0 ? 'Title screen' : st.label}
-                </button>
-              ))}
-              <button
-                className="drawer-link"
-                onClick={() => {
-                  setDrawer(false);
-                  openMap();
-                }}
-              >
-                Open map
-              </button>
-              <button
-                className={`drawer-link${free ? ' active' : ''}`}
-                onClick={() => {
-                  setDrawer(false);
-                  onToggleFree();
-                }}
-              >
-                {free ? 'Back to tour' : copy.freeOff}
-              </button>
-              <p className="drawer-section">Theme</p>
-              <ThemeOptions
-                role={undefined}
-                className="theme-option drawer-theme"
-                onPick={(id) => {
-                  setDrawer(false);
-                  onSwitchTheme(id);
-                }}
-              />
-            </m.nav>
-          </m.div>
-        )}
-      </AnimatePresence>
     </header>
   );
 }

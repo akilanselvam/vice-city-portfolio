@@ -8,9 +8,29 @@ import { makeHoloSign } from './spaceTextures.js';
 import { useSignTexture } from './Termini.jsx';
 import { store } from '../store.js';
 import { stops } from '../../data/portfolio.js';
+import { experience, profile, projects, sortedCerts } from '../../data/content.jsx';
+import ContentBoard, { ProjectCards } from './ContentBoard.jsx';
 
-// A themed pit-stop cart beside each section: a stall, a character at work and props that say what the
-// section is. Local space: the road is toward -z, the cart's counter faces it.
+// A themed pit-stop cart beside each section: a stall, a character at work, a board showing the
+// section's real content and props that say what the section is. Local space: the road is toward -z,
+// the cart's counter faces it.
+
+// The sign over each cart names the section plainly, with a real detail underneath. Same words in every
+// theme; only the lettering changes. (Free roam keeps its themed school names, which the top bar uses too.)
+const SIGNS = {
+  home: ['Welcome', profile.role],
+  about: ['About Me', profile.name],
+  skills: ['Certifications', `${sortedCerts().length} earned`],
+  projects: ['Projects', `${projects.length} featured builds`],
+  experience: [
+    'Experience',
+    experience
+      .filter((e) => e.type === 'work' && e.org)
+      .map((e) => e.org)
+      .join(' · '),
+  ],
+  contact: ['Contact', "Let's connect"],
+};
 
 const LOOKS = {
   vice: {
@@ -29,12 +49,7 @@ const LOOKS = {
     person: { skin: '#c99a78', pants: '#2a2a3a', hair: '#2a1a10', extra: 'shades' },
     shirts: { home: '#ff6fb5', about: '#2de2ff', skills: '#ffd36b', projects: '#7dff7a', experience: '#c87aff', contact: '#ff9a3d', freeroam: '#ff2d95' },
     names: {
-      home: ['Welcome Kiosk', 'Start your engine'],
-      about: ['Driver Profile', 'Who is behind the wheel'],
-      skills: ['Skill Garage', 'Tools of the trade'],
-      projects: ['Mission Board', 'Pick a job'],
-      experience: ['Trophy Stand', 'Career wins'],
-      contact: ['Payphone', 'Call me up'],
+      ...SIGNS,
       freeroam: ['Driving School', 'Take the wheel'],
     },
   },
@@ -54,12 +69,7 @@ const LOOKS = {
     person: { skin: '#c9a27e', pants: '#3a2c20', hair: '#3a2414', extra: 'hood' },
     shirts: { home: '#5a6a3a', about: '#4a5a7a', skills: '#5a3a2a', projects: '#6a4a2a', experience: '#7a1d14', contact: '#3a4a5a', freeroam: '#2a4a2a' },
     names: {
-      home: ['Waystation', 'Rest a while, traveller'],
-      about: ["Traveller's Tale", 'Who rides this road'],
-      skills: ['Smithy', 'Steel & alchemy'],
-      projects: ['Notice Board', 'Contracts posted'],
-      experience: ['Hall of Deeds', 'Honours earned'],
-      contact: ['Raven Post', 'Send word'],
+      ...SIGNS,
       freeroam: ['Stables', 'Take the reins'],
     },
   },
@@ -79,12 +89,7 @@ const LOOKS = {
     person: { skin: '#c9a27e', pants: '#3a3f4a', hair: '#1a1a1a', extra: 'helmet' },
     shirts: { home: '#6b7280', about: '#5a6470', skills: '#6b7280', projects: '#5a6470', experience: '#6b7280', contact: '#5a6470', freeroam: '#7a6a2a' },
     names: {
-      home: ['Supply Drop', 'Gear up, diver'],
-      about: ['Personnel File', 'Service record'],
-      skills: ['Armory', 'Loadout bench'],
-      projects: ['Mission Terminal', 'Active contracts'],
-      experience: ['Medal Rack', 'Decorations'],
-      contact: ['Comms Relay', 'Open a channel'],
+      ...SIGNS,
       freeroam: ['Flight School', 'Take the controls'],
     },
   },
@@ -386,77 +391,91 @@ function AboutProps({ look, theme }) {
   );
 }
 
-function SkillsProps({ look, theme }) {
+// Badge colours for each certification's tier, in the order the section lists them
+const TIER_COLORS = { expert: '#ffd36b', associate: '#d8dce8', fundamentals: '#e0a070', specialty: '#2de2ff' };
+const CERT_TIERS = sortedCerts().map((c) => TIER_COLORS[c.tier]);
+
+function CertProps({ look, theme }) {
+  // A display board beside the cart with one hexagon badge per certification (gold expert, silver
+  // associate, bronze fundamentals, cyan specialty), a framed certificate and a trophy on the counter
+  const board = theme === 'medieval' ? '#5a3d26' : theme === 'space' ? '#0b1424' : '#2a1a40';
   return (
     <>
-      {/* tools on the counter and a tool wall behind */}
-      <mesh position={[-1.4, 1.98, -0.6]}>
-        <boxGeometry args={[1.2, 0.5, 0.6]} />
-        <Std color={theme === 'medieval' ? '#5a3d26' : theme === 'space' ? '#3a3f4a' : '#d8262e'} metal={0.3} />
-      </mesh>
-      <mesh position={[0.6, 1.79, -0.7]} rotation={[-Math.PI / 2, 0, 0.6]}>
-        <boxGeometry args={[0.1, 0.9, 0.06]} />
-        <Std color={look.metal} metal={0.9} rough={0.3} />
-      </mesh>
-      {[-2.2, -1.2, -0.2, 0.8, 1.8].map((x, k) => (
-        <mesh key={x} position={[x, 3.3 + (k % 2) * 0.3, 1.36]}>
-          <boxGeometry args={[0.12, 0.9 - (k % 3) * 0.2, 0.06]} />
-          <Std color={look.metal} metal={0.9} rough={0.3} />
+      <group position={[4.8, 0, 0]} rotation={[0, -0.3, 0]}>
+        {[-1.3, 1.3].map((x) => (
+          <mesh key={x} position={[x, 1.4, 0.1]}>
+            <boxGeometry args={[0.14, 2.8, 0.14]} />
+            <Std color={look.trim} />
+          </mesh>
+        ))}
+        <mesh position={[0, 2.25, 0]}>
+          <boxGeometry args={[2.8, 1.9, 0.12]} />
+          <Std color={board} emissive={theme === 'space' ? '#0b2a4a' : undefined} ei={theme === 'space' ? 0.6 : 0} />
         </mesh>
-      ))}
-      {theme === 'medieval' && (
-        <>
-          {/* anvil and a glowing forge */}
-          <group position={[4.5, 0, -0.3]}>
-            <mesh position={[0, 0.35, 0]}>
-              <boxGeometry args={[0.5, 0.7, 0.5]} />
-              <Std color="#3a3a3e" metal={0.6} rough={0.5} />
-            </mesh>
-            <mesh position={[0, 0.82, 0]}>
-              <boxGeometry args={[1.2, 0.3, 0.5]} />
-              <Std color="#4a4a50" metal={0.7} rough={0.4} />
-            </mesh>
-          </group>
-          <mesh position={[4.6, 0.6, 1.4]}>
-            <boxGeometry args={[1.3, 1.2, 1.1]} />
-            <Std color="#5c5751" />
+        {theme === 'vice' && (
+          <mesh position={[0, 2.25, -0.065]}>
+            <boxGeometry args={[2.9, 2.0, 0.01]} />
+            <Glow color={[2.6, 0.35, 1.4]} />
           </mesh>
-          <mesh position={[4.6, 1.22, 1.4]}>
-            <boxGeometry args={[0.9, 0.06, 0.7]} />
-            <Glow color={[3.4, 1.2, 0.2]} />
-          </mesh>
-        </>
-      )}
-      {theme === 'space' && (
-        <group position={[4.6, 0, 0]}>
-          <mesh position={[0, 1.4, 0.4]}>
-            <boxGeometry args={[1.6, 2.8, 0.3]} />
-            <Std color="#2c3038" metal={0.5} />
-          </mesh>
-          {[-0.45, 0, 0.45].map((x) => (
-            <mesh key={x} position={[x, 1.5, 0.2]}>
-              <boxGeometry args={[0.16, 2.0, 0.14]} />
-              <Std color="#9aa2ae" metal={0.8} rough={0.35} />
-            </mesh>
-          ))}
-          <mesh position={[0, 2.85, 0.2]}>
-            <boxGeometry args={[1.6, 0.08, 0.1]} />
-            <Glow color={[0.5, 1.4, 3.4]} />
-          </mesh>
-        </group>
-      )}
-      {theme === 'vice' && (
-        <mesh position={[4.6, 0.55, -0.3]}>
-          <boxGeometry args={[1.4, 1.1, 0.9]} />
-          <Std color="#d8262e" metal={0.4} rough={0.5} />
+        )}
+        {CERT_TIERS.map((color, k) => {
+          const row = k < 4 ? 0 : 1;
+          const col = row === 0 ? k : k - 4;
+          const x = row === 0 ? -0.99 + col * 0.66 : -0.66 + col * 0.66;
+          return (
+            <group key={k} position={[x, 2.62 - row * 0.74, -0.1]}>
+              {theme === 'medieval' ? (
+                <>
+                  <mesh>
+                    <boxGeometry args={[0.46, 0.56, 0.02]} />
+                    <Std color="#efe0bb" rough={1} />
+                  </mesh>
+                  <mesh position={[0, -0.16, -0.03]} rotation={[Math.PI / 2, 0, 0]}>
+                    <cylinderGeometry args={[0.1, 0.1, 0.04, 12]} />
+                    <Std color={k === 0 ? '#d9b46a' : '#8a1c14'} metal={0.3} />
+                  </mesh>
+                </>
+              ) : (
+                <mesh rotation={[Math.PI / 2, 0, 0]}>
+                  <cylinderGeometry args={[0.26, 0.26, 0.06, 6]} />
+                  <Std color={color} metal={0.6} rough={0.35} emissive={theme === 'space' ? color : undefined} ei={theme === 'space' ? 0.35 : 0} />
+                </mesh>
+              )}
+            </group>
+          );
+        })}
+      </group>
+      {/* Framed certificate standing on the counter */}
+      <group position={[-1.5, 2.0, -0.6]} rotation={[-0.25, 0.2, 0]}>
+        <mesh>
+          <boxGeometry args={[0.8, 0.6, 0.05]} />
+          <Std color={theme === 'medieval' ? '#5a3d26' : '#d9b46a'} metal={0.4} />
         </mesh>
-      )}
+        <mesh position={[0, 0, -0.03]}>
+          <planeGeometry args={[0.66, 0.46]} />
+          <meshStandardMaterial color={theme === 'space' ? '#cfe8ff' : '#f4ecd8'} side={DoubleSide} />
+        </mesh>
+      </group>
+      {/* Trophy */}
+      <group position={[1.3, 1.74, -0.7]}>
+        <mesh position={[0, 0.08, 0]}>
+          <boxGeometry args={[0.3, 0.16, 0.3]} />
+          <Std color={look.trim} />
+        </mesh>
+        <mesh position={[0, 0.3, 0]}>
+          <cylinderGeometry args={[0.05, 0.08, 0.28, 8]} />
+          <Std color="#ffd36b" metal={0.9} rough={0.25} />
+        </mesh>
+        <mesh position={[0, 0.56, 0]}>
+          <cylinderGeometry args={[0.2, 0.08, 0.3, 12]} />
+          <Std color="#ffd36b" metal={0.9} rough={0.25} />
+        </mesh>
+      </group>
     </>
   );
 }
 
 function ProjectsProps({ look, theme }) {
-  const cards = theme === 'medieval' ? ['#efe0bb', '#e8d8b0', '#f4e8c8'] : theme === 'space' ? ['#ffd100', '#4da3ff', '#cfe8ff'] : ['#ff4fa8', '#2de2ff', '#ffd36b'];
   return (
     <>
       <group position={[4.8, 0, 0]} rotation={[0, -0.3, 0]}>
@@ -470,12 +489,8 @@ function ProjectsProps({ look, theme }) {
           <boxGeometry args={[3, 1.9, 0.12]} />
           <Std color={theme === 'space' ? '#0b1424' : theme === 'medieval' ? '#5a3d26' : '#3a2a52'} emissive={theme === 'space' ? '#0b2a4a' : undefined} ei={theme === 'space' ? 0.6 : 0} />
         </mesh>
-        {Array.from({ length: 6 }, (_, k) => (
-          <mesh key={k} position={[-0.95 + (k % 3) * 0.95, 2.6 - Math.floor(k / 3) * 0.85, -0.08]} rotation={[0, 0, (k % 2 ? 1 : -1) * 0.06]}>
-            <planeGeometry args={[0.7, 0.62]} />
-            <meshStandardMaterial color={cards[k % 3]} side={DoubleSide} emissive={theme === 'space' ? cards[k % 3] : '#000000'} emissiveIntensity={theme === 'space' ? 0.5 : 0} />
-          </mesh>
-        ))}
+        {/* a pinned card per project */}
+        <ProjectCards theme={theme} position={[0, 2.2, -0.07]} size={[2.85, 1.78]} />
       </group>
       {[
         [-1.6, 1.98, -0.7, 0.5],
@@ -539,7 +554,7 @@ function ExperienceProps({ theme }) {
       </group>
     );
   }
-  // Vice City: a three-step podium with gold trophies
+  // Neon Bay: a three-step podium with gold trophies
   return (
     <group position={[4.7, 0, -0.2]}>
       {[
@@ -638,7 +653,7 @@ function ContactProps({ theme }) {
       </group>
     );
   }
-  // Vice City: a payphone on a post
+  // Neon Bay: a payphone on a post
   return (
     <group position={[4.6, 0, -0.2]}>
       <mesh position={[0, 0.8, 0]}>
@@ -673,7 +688,6 @@ function Dressing({ look, theme }) {
     if (theme === 'space' && lights.current) lights.current.visible = Math.sin(clock.elapsedTime * 3) > -0.3;
   });
   const g = look.goods;
-  const shelfItems = Array.from({ length: 7 }, (_, k) => k);
   return (
     <>
       {/* paved pad joining the cart to the road, so there's no grass between */}
@@ -687,25 +701,6 @@ function Dressing({ look, theme }) {
           <Std color="#ffd100" emissive="#ffd100" ei={0.3} />
         </mesh>
       )}
-
-      {/* stocked shelves on the back wall */}
-      {[2.45, 3.35].map((y, row) => (
-        <group key={y}>
-          <mesh position={[0, y, 1.2]}>
-            <boxGeometry args={[5.4, 0.08, 0.38]} />
-            <Std color={look.trim} />
-          </mesh>
-          {shelfItems.map((k) => {
-            const tall = (k + row) % 3 === 0;
-            return (
-              <mesh key={k} position={[-2.3 + k * 0.76, y + (tall ? 0.24 : 0.17), 1.18]}>
-                {tall ? <cylinderGeometry args={[0.14, 0.14, 0.42, 10]} /> : <boxGeometry args={[0.38, 0.3, 0.26]} />}
-                <Std color={g[(k + row * 2) % g.length]} rough={0.5} />
-              </mesh>
-            );
-          })}
-        </group>
-      ))}
 
       {/* more on the counter */}
       {[-2.6, -0.6, 2.3].map((x, k) => (
@@ -956,7 +951,7 @@ function Guide({ look, shirt }) {
 const SECTIONS = {
   home: { Props: HomeProps, pose: 'wave' },
   about: { Props: AboutProps, pose: 'idle', hold: 'clipboard' },
-  skills: { Props: SkillsProps, pose: 'work', hold: 'tool' },
+  skills: { Props: CertProps, pose: 'point', hold: 'clipboard' },
   projects: { Props: ProjectsProps, pose: 'point' },
   experience: { Props: ExperienceProps, pose: 'cheer' },
   contact: { Props: ContactProps, pose: 'talk', hold: 'phone' },
@@ -977,6 +972,7 @@ function PitStop({ stop, theme }) {
     <group position={[stop.x, 0, stop.y]} rotation={[0, stop.rot, 0]}>
       <Stall look={look} color={look.body[stop.id]} sign={sign} theme={theme} />
       <Dressing look={look} theme={theme} />
+      <ContentBoard theme={theme} id={stop.id} position={[0, 3.15, 1.37]} size={[5.6, 2.5]} />
       <Props look={look} theme={theme} />
       {section.guide ? (
         <Guide look={look} shirt={look.shirts[stop.id]} />

@@ -4,7 +4,7 @@ import { ROUTE_PATH } from '../journey/route.js';
 import { useTheme } from '../theme/ThemeContext.jsx';
 
 const LAND = LAND_OUTLINES.map(outlinePath);
-// Neon city plan for Vice City, ink on parchment for medieval, a tactical scope for the galactic theme
+// Neon city plan for Neon Bay, ink on parchment for medieval, a tactical scope for the galactic theme
 const PALETTES = {
   vice: {
     sea: ['#1a1450', '#060518'], grid: '#2de2ff', gridOpacity: 0.08, beach: '#f5b97a', land: '#22123f',

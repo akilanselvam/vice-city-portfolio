@@ -4,6 +4,25 @@ import { stops as baseStops } from '../data/portfolio.js';
 import { ensureThemeFonts } from './fonts.js';
 
 const STORAGE_KEY = 'portfolio-theme';
+
+// The neon theme is called Neon Bay with an "AS" logo mark. Original names only (no game names or logos).
+const COPY_OVERRIDES = {
+  vice: { name: 'Neon Bay', switchLabel: 'Neon Bay', loading: 'Loading Neon Bay…', logoMark: 'AS', mapTitle: 'Neon Bay' },
+};
+const AREA_OVERRIDES = {
+  vice: { home: { area: 'Neon Bay', sub: 'Welcome' } },
+};
+
+// A theme's text with the overrides above applied (for anything that needs another theme's names)
+export const themeCopy = (id) => ({ ...THEMES[id], ...COPY_OVERRIDES[id] });
+
+// The second stop used to be Skills; it now shows certifications. Its id stays 'skills' (the route and
+// map code use it), and only the names shown change, per theme.
+const SECTION_NAMES = {
+  vice: { skills: { label: 'Certifications', area: 'Certifications', sub: 'Badges earned' } },
+  medieval: { skills: { label: 'Certifications', area: 'Certifications', sub: 'Seals & charters' } },
+  space: { skills: { label: 'Certifications', area: 'Certifications', sub: 'Commendations' } },
+};
 const ThemeContext = createContext(null);
 
 export function initialTheme() {
@@ -32,12 +51,12 @@ export function ThemeProvider({ children }) {
   }, [id]);
 
   const value = useMemo(() => {
-    const copy = THEMES[id];
+    const copy = themeCopy(id);
     return {
       id,
       copy,
       // Stops with this theme's location names
-      stops: baseStops.map((st) => ({ ...st, ...copy.areas[st.id] })),
+      stops: baseStops.map((st) => ({ ...st, ...copy.areas[st.id], ...AREA_OVERRIDES[id]?.[st.id], ...SECTION_NAMES[id]?.[st.id] })),
       next: THEME_ORDER[(THEME_ORDER.indexOf(id) + 1) % THEME_ORDER.length],
       setTheme: setId,
     };

@@ -4,7 +4,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import ScreenHeader from '../components/ScreenHeader.jsx';
 import MissionCover from '../components/MissionCover.jsx';
 import MissionModal from '../components/MissionModal.jsx';
-import { projectCategories, projects } from '../data/portfolio.js';
+import { projectCategories, projects } from '../data/content.jsx';
 import useScrollLock from '../journey/useScrollLock.js';
 
 const categoryLabel = (id) => projectCategories.find((c) => c.id === id)?.label;

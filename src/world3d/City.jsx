@@ -21,6 +21,7 @@ import { CITY, ROADS } from '../city/generate.js';
 import { ROUTE_LENGTH, STOP_LENGTHS, headingAtLength, pointAtLength } from '../journey/route.js';
 import { ROAD_TILE_METERS, makeRoadTexture, makeSignTexture, makeWindowTexture } from './textures.js';
 import { store } from './store.js';
+import ViceGround, { makePavementTexture } from './ViceGround.jsx';
 
 const dummy = new Object3D();
 
@@ -148,7 +149,8 @@ const VICE_GROUND = {
   land: '#3a2a52',
 };
 
-export function Ground({ colors = VICE_GROUND }) {
+// landMap (optional): a texture for the land surface, also used as a faint glow so it reads at night
+export function Ground({ colors = VICE_GROUND, landMap = null }) {
   const geos = useMemo(() => {
     const land = mergeGeometries(LAND_OUTLINES.map((o) => landGeometry(o, 0, 3)));
     const beach = mergeGeometries(LAND_OUTLINES.map((o) => landGeometry(o, 6, 3)));
@@ -164,7 +166,11 @@ export function Ground({ colors = VICE_GROUND }) {
         <meshStandardMaterial color={colors.shore} roughness={1} />
       </mesh>
       <mesh geometry={geos.land} position={[0, -3, 0]}>
-        <meshStandardMaterial color={colors.land} roughness={1} />
+        {landMap ? (
+          <meshStandardMaterial map={landMap} emissive="#ffffff" emissiveMap={landMap} emissiveIntensity={0.16} roughness={0.95} />
+        ) : (
+          <meshStandardMaterial color={colors.land} roughness={1} />
+        )}
       </mesh>
     </>
   );
@@ -542,6 +548,8 @@ export function StopSigns({ stops, look = VICE_SIGN }) {
 }
 
 export default function City({ glow, stops }) {
+  const pavement = useMemo(() => makePavementTexture(), []);
+  useEffect(() => () => pavement.dispose(), [pavement]);
   const materials = useMemo(
     () => ({
       route: roadMaterial(makeRoadTexture('#ff6fc8')),
@@ -552,7 +560,8 @@ export default function City({ glow, stops }) {
   );
   return (
     <>
-      <Ground />
+      <Ground landMap={pavement} />
+      <ViceGround glow={glow} />
       <Roads materials={materials} />
       <Buildings />
       <Palms />

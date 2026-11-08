@@ -1,7 +1,7 @@
-import { ChevronRight, Mail, MapPin } from 'lucide-react';
-import { GithubIcon, LinkedinIcon } from '../components/BrandIcons.jsx';
+import { ChevronRight, Download, Mail, MapPin } from 'lucide-react';
+import { GithubIcon, InstagramIcon, LinkedinIcon } from '../components/BrandIcons.jsx';
 import ScreenHeader from '../components/ScreenHeader.jsx';
-import { contact } from '../data/portfolio.js';
+import { contact } from '../data/content.jsx';
 
 const pretty = (url) => url.replace(/^https?:\/\/(www\.)?/, '');
 
@@ -9,6 +9,7 @@ const ITEMS = [
   { Icon: Mail, label: 'Email', value: contact.email, href: `mailto:${contact.email}` },
   { Icon: LinkedinIcon, label: 'LinkedIn', value: pretty(contact.linkedin), href: contact.linkedin, external: true },
   { Icon: GithubIcon, label: 'GitHub', value: pretty(contact.github), href: contact.github, external: true },
+  { Icon: InstagramIcon, label: 'Instagram', value: '@' + pretty(contact.instagram).split('/')[1], href: contact.instagram, external: true },
   { Icon: MapPin, label: 'Location', value: contact.location },
 ];
 
@@ -45,11 +46,16 @@ export default function ContactStop() {
           })}
         </ul>
       </div>
-      <p className="script contact-quote" aria-hidden="true">
-        New connections,
-        <br />
-        new destinations
-      </p>
+      <div className="contact-aside">
+        <p className="script contact-quote" aria-hidden="true">
+          New connections,
+          <br />
+          new destinations
+        </p>
+        <a className="btn btn-primary contact-cv" href={contact.cv} target="_blank" rel="noreferrer">
+          <Download size={16} aria-hidden="true" /> Download CV
+        </a>
+      </div>
     </div>
   );
 }

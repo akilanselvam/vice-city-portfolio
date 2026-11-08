@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { AnimatePresence, m } from 'framer-motion';
-import { ArrowRight, Building2, GraduationCap, Heart, MapPin, User } from 'lucide-react';
+import { ArrowRight, Building2, Code2, GraduationCap, Heart, MapPin, User } from 'lucide-react';
 import ScreenHeader from '../components/ScreenHeader.jsx';
-import { profile } from '../data/portfolio.js';
+import { profile } from '../data/content.jsx';
 import { useTheme } from '../theme/ThemeContext.jsx';
 
 const TABS = [
@@ -16,6 +16,7 @@ const INFO = [
   { Icon: User, label: 'Role', value: profile.role },
   { Icon: Building2, label: 'Company', value: profile.company },
   { Icon: GraduationCap, label: 'Education', value: profile.education },
+  { Icon: Code2, label: 'Stack', value: profile.stack.join(' · ') },
   { Icon: Heart, label: 'Interests', value: profile.interests.join(' · ') },
 ];
 

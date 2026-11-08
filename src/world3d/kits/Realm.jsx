@@ -65,7 +65,7 @@ function wallGeometry(storeys) {
 }
 
 // Split the city's footprints into one- and two-storey houses and stone towers. Footprints are unchanged,
-// so collisions match the Vice City buildings exactly.
+// so collisions match the Neon Bay buildings exactly.
 function planTown() {
   const houses = [[], []];
   const towers = [];
@@ -153,7 +153,7 @@ function Houses() {
   );
 }
 
-// Old stone towers with steep slate spires where Vice City had skyscrapers
+// Old stone towers with steep slate spires where Neon Bay had skyscrapers
 function Towers({ towers, stone }) {
   const bodyRef = useRef();
   const roofRef = useRef();
@@ -198,7 +198,7 @@ function Towers({ towers, stone }) {
   );
 }
 
-// Pines and broad oaks along the roads and shore, on the spots Vice City used for palms
+// Pines and broad oaks along the roads and shore, on the spots Neon Bay used for palms
 function Trees() {
   const { pines, oaks } = useMemo(() => {
     const p = [];
@@ -261,7 +261,7 @@ function Trees() {
   );
 }
 
-// Lantern posts where Vice City had street lights; the flames flicker
+// Lantern posts where Neon Bay had street lights; the flames flicker
 function Lanterns({ glow }) {
   const refs = useRef({});
   const flame = useRef();
@@ -319,7 +319,7 @@ function Lanterns({ glow }) {
   );
 }
 
-// Stone windmill on the islet where Vice City had its Ferris wheel
+// Stone windmill on the islet where Neon Bay had its Ferris wheel
 function Windmill() {
   const sails = useRef();
   const stone = useMemo(() => makeStoneTexture(), []);

@@ -26,6 +26,10 @@ export default function FreeRoamStop({ onFreeRoam }) {
   return (
     <div className="freeroam-stop">
       <ScreenHeader title={copy.areas.freeroam?.area ?? copy.freeOff} stop="freeroam" />
+      <button className="btn btn-primary freeroam-start" onClick={onFreeRoam}>
+        <Gamepad2 size={22} aria-hidden="true" />
+        Start {copy.freeOff.toLowerCase()}
+      </button>
       <div className="freeroam-grid">
         <div className="speech">
           <p className="speech-name">{guide.name}</p>
@@ -60,10 +64,6 @@ export default function FreeRoamStop({ onFreeRoam }) {
             </span>
           </li>
         </ul>
-        <button className="btn btn-primary freeroam-start" onClick={onFreeRoam}>
-          <Gamepad2 size={22} aria-hidden="true" />
-          Start {copy.freeOff.toLowerCase()}
-        </button>
       </div>
     </div>
   );

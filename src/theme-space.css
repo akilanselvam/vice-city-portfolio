@@ -31,16 +31,39 @@
 
 /* Overlay, loading, fallback */
 [data-theme='space'] .world-fallback { background: radial-gradient(ellipse at 60% 30%, #2a3a7a 0%, #0a0c1c 55%, #030408 100%); }
-[data-theme='space'] .marker-letter {
-  border: 2px solid var(--blue);
-  border-radius: 2px;
-  background: #0b1424;
-  color: #cfe8ff;
-  box-shadow: 0 0 14px rgba(77, 163, 255, 0.7);
+/* Marker tag: an angular HUD waypoint in hazard yellow */
+[data-theme='space'] .marker-tag {
+  gap: 9px;
+  padding: 3px 16px 3px 3px;
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(90deg, rgba(255, 209, 0, 0.9) 0 3px, rgba(8, 10, 14, 0.9) 3px);
+  box-shadow: inset 0 0 0 1px rgba(255, 209, 0, 0.75);
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }
-[data-theme='space'] .marker-name { color: #fff; }
-[data-theme='space'] .loading-screen { background: radial-gradient(ellipse at 50% 60%, #14204a 0%, #05060c 70%); }
-[data-theme='space'] .loading-mark,
+[data-theme='space'] .marker-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 0;
+  background: var(--yellow);
+  color: var(--ink);
+  box-shadow: none;
+  clip-path: polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px));
+}
+[data-theme='space'] .marker-name {
+  font: 700 14px/1.05 var(--font-ui);
+  letter-spacing: 0.16em;
+  color: #fff;
+}
+[data-theme='space'] .marker-sub {
+  font: 600 10px/1 var(--font-ui);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue);
+  text-shadow: none;
+}
+[data-theme='space'] .marker-pin { background: linear-gradient(180deg, var(--yellow), rgba(255, 209, 0, 0)); }
+[data-theme='space'] .marker-pin::after { border-radius: 0; transform: rotate(45deg); background: var(--yellow); box-shadow: 0 0 8px rgba(255, 209, 0, 0.8); }
 [data-theme='space'] .logo-mark,
 [data-theme='space'] .portrait-initials {
   background: none;
@@ -50,8 +73,6 @@
   -webkit-text-stroke: 0;
   filter: drop-shadow(0 0 18px rgba(255, 209, 0, 0.35)) drop-shadow(4px 4px 0 #000);
 }
-[data-theme='space'] .loading-mark { font-size: 120px; }
-[data-theme='space'] .loading-bar::after { background: var(--yellow); box-shadow: var(--glow-pink); }
 
 /* Panels: cut corners, a hazard-stripe trim along the top */
 [data-theme='space'] .stop-card {
@@ -88,7 +109,8 @@
 [data-theme='space'] .info-list,
 [data-theme='space'] .tl-card,
 [data-theme='space'] .contact-card,
-[data-theme='space'] .skill-tile,
+[data-theme='space'] .cert-card,
+[data-theme='space'] .course-row,
 [data-theme='space'] .mission-card { border-radius: 0; }
 
 /* Buttons and highlights: black text on hazard yellow */
@@ -101,8 +123,6 @@
 [data-theme='space'] .btn-primary,
 [data-theme='space'] .chip.active,
 [data-theme='space'] .nav-link.active,
-[data-theme='space'] .drawer-link:hover,
-[data-theme='space'] .drawer-link.active,
 [data-theme='space'] .district:hover,
 [data-theme='space'] .district.active,
 [data-theme='space'] .pad:active {
@@ -143,8 +163,6 @@
   text-shadow: 2px 2px 0 #000;
 }
 [data-theme='space'] .hud-coin { color: var(--yellow); filter: drop-shadow(0 0 6px rgba(255, 209, 0, 0.6)); }
-[data-theme='space'] .drawer { border-left: 4px solid var(--yellow); }
-[data-theme='space'] .drawer-link { border-radius: 0; }
 
 /* Radar: tactical scope */
 [data-theme='space'] .radar {
@@ -160,6 +178,18 @@
 [data-theme='space'] .blip { fill: #0b1424; stroke: var(--blue); }
 [data-theme='space'] .blip-text { fill: #cfe8ff; }
 [data-theme='space'] .area-sub { color: var(--blue); }
+[data-theme='space'] .next-stop {
+  border: 0;
+  border-radius: 0;
+  background: var(--yellow);
+  box-shadow: none;
+  color: var(--ink);
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+[data-theme='space'] .next-stop:hover,
+[data-theme='space'] .next-stop:focus-visible { box-shadow: none; filter: brightness(1.08); }
+[data-theme='space'] .next-stop-label { color: rgba(11, 12, 15, 0.7); }
+[data-theme='space'] .next-stop-name { font-family: var(--font-ui); font-weight: 700; text-transform: uppercase; }
 
 /* Map */
 [data-theme='space'] .map-overlay { background: rgba(3, 4, 8, 0.9); }
@@ -190,9 +220,8 @@
 /* Sections */
 [data-theme='space'] .portrait { border-color: var(--line); border-radius: 0; background: linear-gradient(160deg, rgba(77, 163, 255, 0.2), rgba(10, 12, 16, 0.6) 55%, rgba(255, 209, 0, 0.15)); }
 [data-theme='space'] .info-icon { border-radius: 0; border-color: rgba(255, 209, 0, 0.4); background: rgba(255, 209, 0, 0.1); color: var(--yellow); }
-[data-theme='space'] .skill-tile:hover,
 [data-theme='space'] a.contact-card:hover { border-color: var(--yellow); box-shadow: 0 0 18px rgba(255, 209, 0, 0.25); }
-[data-theme='space'] .skill-glyph { color: var(--blue); filter: drop-shadow(0 0 8px rgba(77, 163, 255, 0.6)); }
+[data-theme='space'] .course-icon { color: var(--blue); }
 [data-theme='space'] .mission-cat { color: var(--blue); }
 [data-theme='space'] .tl-org { color: var(--yellow); }
 [data-theme='space'] .cover { background: radial-gradient(ellipse at 50% 20%, #24346a 0%, #0a0e1c 60%, #04050a 100%); }
@@ -212,7 +241,7 @@
 /* The stencil face runs wide: shrink the name, drop the script under it, tame the motto */
 [data-theme='space'] .logo-name { font-size: clamp(30px, 3.2vw, 50px); padding-top: 4%; }
 [data-theme='space'] .logo-script { margin: 0 -6px -40px 0; font-size: clamp(32px, 3.2vw, 50px); transform: rotate(-4deg); }
-[data-theme='space'] .tagline { margin-top: 30px; }
+[data-theme='space'] .home-headline { margin-top: 48px; }
 [data-theme='space'] .motto { font-size: clamp(30px, 3vw, 46px); transform: rotate(-6deg); }
 @media (max-width: 759px) {
   [data-theme='space'] .logo-name { font-size: 28px; }

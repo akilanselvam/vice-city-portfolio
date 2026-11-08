@@ -1,6 +1,6 @@
 import { ArrowRight, Briefcase, GraduationCap } from 'lucide-react';
 import ScreenHeader from '../components/ScreenHeader.jsx';
-import { experience } from '../data/portfolio.js';
+import { experience } from '../data/content.jsx';
 
 export default function ExperienceStop({ travelTo }) {
   return (
@@ -23,6 +23,7 @@ export default function ExperienceStop({ travelTo }) {
                   <p className="tl-meta">
                     {item.org && <span className="tl-org">{item.org}</span>}
                     {item.org && ' · '}
+                    {item.place && `${item.place} · `}
                     {item.period}
                   </p>
                   <p>{item.description}</p>

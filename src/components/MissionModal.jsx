@@ -67,7 +67,7 @@ export default function MissionModal({ project, onClose }) {
               )}
               {live && (
                 <a className="btn btn-primary" href={live} target="_blank" rel="noreferrer">
-                  <ExternalLink size={16} aria-hidden="true" /> Live demo
+                  <ExternalLink size={16} aria-hidden="true" /> Visit site
                 </a>
               )}
             </div>

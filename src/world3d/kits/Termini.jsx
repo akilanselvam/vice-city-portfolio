@@ -74,7 +74,7 @@ function Sign({ texture, width, height, position, brightness = 1.4 }) {
   );
 }
 
-/* ---------------- Vice City ---------------- */
+/* ---------------- Neon Bay ---------------- */
 
 function Palm({ position, height = 10, lean = 0.08 }) {
   const crown = useMemo(
@@ -105,7 +105,7 @@ function Palm({ position, height = 10, lean = 0.08 }) {
 const VICE_FONTS = ['150px Yellowtail', '62px Anton'];
 
 function ViceStart() {
-  const sign = useSignTexture(makeSignTexture, VICE_FONTS, 'Vice City', 'Welcome to the sunshine coast');
+  const sign = useSignTexture(makeSignTexture, VICE_FONTS, 'Neon Bay', 'Welcome to the sunshine coast');
   return (
     <Place at={TERMINI.start}>
       <Plaza radius={TERMINI.start.radius} color="#2a1d3e">

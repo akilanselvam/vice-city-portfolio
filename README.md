@@ -2,7 +2,7 @@
 
 A drivable 3D portfolio. Scroll (or use the top bar) to tour seven pit stops: Home, About, Skills,
 Projects, Experience, Contact and Free roam. Or take the wheel and free roam the map. Three themes share
-one route: Vice City (car), Medieval (horse and cart) and Galactic (dropship).
+one route: Neon Bay (car), Medieval (horse and cart) and Galactic (dropship).
 
 Built with React 19, Vite, three.js / React Three Fiber and framer-motion.
 

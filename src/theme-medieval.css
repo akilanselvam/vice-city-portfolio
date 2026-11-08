@@ -1,5 +1,5 @@
 /* Medieval theme: dark leather and parchment panels, gold leaf, blood-red accents, serif lettering.
-   Everything here only applies while <html data-theme="medieval">; the Vice City look is the default. */
+   Everything here only applies while <html data-theme="medieval">; the Neon Bay look is the default. */
 [data-theme='medieval'] {
   --pink: #7a1d14;
   --pink-soft: #d9b46a;
@@ -34,15 +34,34 @@
 
 /* 3D overlay, loading and fades */
 [data-theme='medieval'] .world-fallback { background: linear-gradient(180deg, #2a3446 0%, #6a6050 50%, #b99a6a 100%); }
-[data-theme='medieval'] .marker-letter {
-  border: 2px solid var(--gold);
-  background: #1a1410;
-  color: var(--gold-hi);
-  font-family: var(--font-display);
-  box-shadow: 0 0 12px rgba(217, 180, 106, 0.55);
+/* Marker tag: a parchment label with a red wax-seal icon */
+[data-theme='medieval'] .marker-tag {
+  gap: 8px;
+  padding: 4px 14px 4px 4px;
+  border: 1.5px solid #7a5a2a;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #f3e6c4 0%, #e2cc96 100%);
+  box-shadow: 0 3px 0 #5a3d1c, 0 8px 16px rgba(0, 0, 0, 0.45);
 }
-[data-theme='medieval'] .loading-screen { background: radial-gradient(ellipse at 50% 60%, #3a2e1e 0%, #0e0c0a 70%); }
-[data-theme='medieval'] .loading-mark,
+[data-theme='medieval'] .marker-icon {
+  width: 28px;
+  height: 28px;
+  background: radial-gradient(circle at 35% 30%, #b8443a 0%, #7a1d14 60%, #4e0f0a 100%);
+  color: #f4e3b5;
+  box-shadow: inset 0 0 0 2px rgba(78, 15, 10, 0.6), 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+[data-theme='medieval'] .marker-name {
+  font: 700 14px/1.1 var(--font-display);
+  letter-spacing: 0.06em;
+  color: #3a2412;
+}
+[data-theme='medieval'] .marker-sub {
+  font: italic 600 14px/1 var(--font-script);
+  color: #7a1d14;
+  text-shadow: none;
+}
+[data-theme='medieval'] .marker-pin { background: linear-gradient(180deg, #e2cc96, rgba(226, 204, 150, 0)); }
+[data-theme='medieval'] .marker-pin::after { background: var(--gold); box-shadow: 0 0 6px rgba(217, 180, 106, 0.8); }
 [data-theme='medieval'] .logo-mark,
 [data-theme='medieval'] .portrait-initials {
   font-weight: 900;
@@ -53,8 +72,6 @@
   -webkit-text-stroke: 1px rgba(0, 0, 0, 0.35);
   filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.6)) drop-shadow(0 0 16px rgba(217, 180, 106, 0.25));
 }
-[data-theme='medieval'] .loading-mark { font-size: 110px; }
-[data-theme='medieval'] .loading-bar::after { background: var(--gold); box-shadow: none; }
 
 /* Panels and headings */
 [data-theme='medieval'] .stop-card {
@@ -96,8 +113,6 @@
 [data-theme='medieval'] .btn-primary,
 [data-theme='medieval'] .chip.active,
 [data-theme='medieval'] .nav-link.active,
-[data-theme='medieval'] .drawer-link:hover,
-[data-theme='medieval'] .drawer-link.active,
 [data-theme='medieval'] .district:hover,
 [data-theme='medieval'] .district.active,
 [data-theme='medieval'] .dot.active,
@@ -133,8 +148,6 @@
   text-shadow: 2px 2px 0 #140d07, -1px -1px 0 #140d07;
 }
 [data-theme='medieval'] .hud-coin { color: var(--gold); filter: drop-shadow(1px 1px 0 #000); }
-[data-theme='medieval'] .drawer { border-left-color: var(--gold); }
-[data-theme='medieval'] .drawer-link { border-radius: 2px; }
 
 /* Minimap: a brass-rimmed medallion over an old map */
 [data-theme='medieval'] .radar {
@@ -150,6 +163,11 @@
 [data-theme='medieval'] .blip { fill: #2a1f16; stroke: var(--gold-hi); }
 [data-theme='medieval'] .blip-text { fill: var(--gold-hi); }
 [data-theme='medieval'] .area-sub { font-family: var(--font-display); }
+[data-theme='medieval'] .next-stop { border-color: var(--gold); background: rgba(22, 18, 15, 0.92); box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5); }
+[data-theme='medieval'] .next-stop:hover,
+[data-theme='medieval'] .next-stop:focus-visible { box-shadow: 0 0 0 1px var(--gold), 0 0 16px rgba(217, 180, 106, 0.35); }
+[data-theme='medieval'] .next-stop-label { font-family: var(--font-ui); color: var(--gold); }
+[data-theme='medieval'] .next-stop-name { font-family: var(--font-display); font-size: 20px; color: var(--gold-hi); }
 
 /* Map overlay */
 [data-theme='medieval'] .map-overlay { background: rgba(10, 8, 6, 0.88); }
@@ -176,9 +194,8 @@
 /* Sections */
 [data-theme='medieval'] .portrait { border-color: var(--line); background: linear-gradient(160deg, rgba(122, 29, 20, 0.3), rgba(40, 32, 24, 0.6) 55%, rgba(217, 180, 106, 0.15)); }
 [data-theme='medieval'] .info-icon { border-color: rgba(217, 180, 106, 0.4); background: rgba(122, 29, 20, 0.25); color: var(--gold); }
-[data-theme='medieval'] .skill-tile:hover,
 [data-theme='medieval'] a.contact-card:hover { border-color: var(--gold); box-shadow: 0 0 18px rgba(217, 180, 106, 0.25); }
-[data-theme='medieval'] .skill-glyph { color: var(--gold); filter: none; }
+[data-theme='medieval'] .course-icon { color: var(--gold); }
 [data-theme='medieval'] .mission-cat,
 [data-theme='medieval'] .tl-org { color: var(--gold); }
 [data-theme='medieval'] .cover { background: linear-gradient(170deg, #3a3024 0%, #1c1611 60%, #2a2016 100%); }
@@ -199,7 +216,7 @@
 /* Cinzel runs wider than Anton: shrink the name and drop the script below it */
 [data-theme='medieval'] .logo-name { font-size: clamp(30px, 3.3vw, 50px); padding-top: 4%; }
 [data-theme='medieval'] .logo-script { margin: 0 -6px -40px 0; font-size: clamp(38px, 3.9vw, 60px); transform: rotate(-5deg); }
-[data-theme='medieval'] .tagline { margin-top: 30px; }
+[data-theme='medieval'] .home-headline { margin-top: 48px; }
 @media (max-width: 759px) {
   [data-theme='medieval'] .logo-name { font-size: 28px; }
   [data-theme='medieval'] .logo-script { margin-bottom: -30px; font-size: 36px; }

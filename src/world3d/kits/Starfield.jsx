@@ -445,7 +445,7 @@ function Pylons({ glow }) {
   );
 }
 
-// Giant radar dish on the islet where Vice City had its Ferris wheel
+// Giant radar dish on the islet where Neon Bay has its Ferris wheel
 function RadarDish() {
   const head = useRef();
   useFrame((_, dt) => {

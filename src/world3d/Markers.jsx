@@ -8,14 +8,23 @@ import { store } from './store.js';
 const projected = new Vector3();
 const anchor = new Vector3();
 
-// GTA-style mission markers: a glowing column you pull into. They fade out once you're inside.
+// Game-style mission markers: a glowing column you pull into. They fade out once you're inside.
+// Tags appear within LABEL_FAR of their stop and are fully shown by LABEL_FULL (map units; stops are
+// 50 to 330 apart, so only the stop you're heading for shows its tag)
+const LABEL_FAR = 46;
+const LABEL_FULL = 34;
+
 const VICE_MARKER = { column: [1.5, 1.05, 0.3], ring: [1.6, 1.1, 0.3] };
 
 export default function Markers({ fade, pose, look = VICE_MARKER }) {
   const columns = useRef([]);
   const rings = useRef([]);
+  // Per tag: last distance to its stop, whether we're heading toward it (1) or away (-1), and its
+  // current (smoothed) opacity
+  const tags = useRef([]);
 
-  useFrame(({ clock, camera, size }) => {
+  useFrame(({ clock, camera, size }, rawDt) => {
+    const dt = Math.min(rawDt, 0.1);
     const t = clock.elapsedTime;
     const cx = pose.x.get();
     const cy = pose.y.get();
@@ -32,17 +41,30 @@ export default function Markers({ fade, pose, look = VICE_MARKER }) {
 
       const label = store.labels[i];
       if (!label) return;
+      // The tag only shows while you're heading toward this stop: it fades in from LABEL_FAR to LABEL_FULL
+      // away and out again in the last few units, where the section's popup takes over. Far-away stops
+      // and the stop you're driving away from show nothing, so tags never float over buildings.
+      const away = Math.hypot(cx - x, cy - y);
+      const tag = (tags.current[i] ??= { last: away, heading: 0, shown: 0 });
+      if (away < tag.last - 0.01) tag.heading = 1;
+      else if (away > tag.last + 0.01) tag.heading = -1;
+      tag.last = away;
+      const near = Math.min(1, Math.max(0, (LABEL_FAR - away) / (LABEL_FAR - LABEL_FULL)));
+      const arriving = Math.min(1, Math.max(0, (away - 6) / 8));
+      const target = tag.heading === -1 ? 0 : near * arriving;
+      tag.shown += (target - tag.shown) * Math.min(1, dt * (target > tag.shown ? 5 : 9));
+      const show = tag.shown;
       anchor.set(x, 11, y);
       const dist = camera.position.distanceTo(anchor);
       projected.copy(anchor).project(camera);
-      if (projected.z > 1 || visibility < 0.01) {
+      if (projected.z > 1 || show < 0.01) {
         label.style.opacity = '0';
         return;
       }
       const sx = ((projected.x + 1) / 2) * size.width;
       const sy = ((1 - projected.y) / 2) * size.height;
       const scale = Math.min(1.3, Math.max(0.45, 70 / dist));
-      label.style.opacity = String(visibility);
+      label.style.opacity = String(show);
       label.style.transform = `translate(${sx.toFixed(1)}px, ${sy.toFixed(1)}px) translate(-50%, -50%) scale(${scale.toFixed(3)})`;
     });
   });
