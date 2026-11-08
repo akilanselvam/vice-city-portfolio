@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Akilan Selvam, Senior Software Engineer. A game-themed portfolio (Vice City, medieval or galactic): skills, projects, experience and contact." />
+    <meta name="theme-color" content="#0a0512" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Akilan Selvam — Portfolio" />
+    <meta property="og:description" content="A drivable, game-themed portfolio: take a tour through skills, projects, experience and contact, or free roam the city." />
+    <meta name="twitter:card" content="summary" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script>
+      // Load only the starting theme's fonts, before the app script runs (others load when picked)
+      (function () {
+        var fonts = {
+          vice: 'family=Anton&family=Rajdhani:wght@500;600;700&family=Yellowtail',
+          medieval: 'family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Alegreya+Sans:wght@500;700',
+          space: 'family=Chakra+Petch:wght@500;600;700&family=Saira+Stencil+One'
+        };
+        var id = new URLSearchParams(location.search).get('theme');
+        try { if (!fonts[id]) id = localStorage.getItem('portfolio-theme'); } catch (e) {}
+        if (!fonts[id]) id = 'vice';
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://fonts.googleapis.com/css2?' + fonts[id] + '&display=swap';
+        link.setAttribute('data-fonts', id);
+        document.head.appendChild(link);
+      })();
+    </script>
+    <title>Akilan Selvam — Portfolio</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

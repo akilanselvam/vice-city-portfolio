@@ -1,0 +1,222 @@
+/* Medieval theme: dark leather and parchment panels, gold leaf, blood-red accents, serif lettering.
+   Everything here only applies while <html data-theme="medieval">; the Vice City look is the default. */
+[data-theme='medieval'] {
+  --pink: #7a1d14;
+  --pink-soft: #d9b46a;
+  --cyan: #d9b46a;
+  --violet: #6b5a3e;
+  --bg: #0e0c0a;
+  --panel: rgba(22, 18, 15, 0.9);
+  --panel-solid: #1a1612;
+  --line: rgba(201, 164, 92, 0.42);
+  --line-soft: rgba(255, 240, 210, 0.09);
+  --text: #efe6d2;
+  --muted: #c4b391;
+  --font-display: 'Cinzel', Georgia, serif;
+  --font-script: 'Cormorant Garamond', Georgia, serif;
+  --font-ui: 'Alegreya Sans', 'Segoe UI', sans-serif;
+  --glow-pink: 0 0 0 1px rgba(201, 164, 92, 0.55), 0 0 14px rgba(122, 29, 20, 0.55);
+  --outline-dark: 2px 2px 0 #0b0806, -1px -1px 0 #0b0806, 1px -1px 0 #0b0806, -1px 1px 0 #0b0806;
+  --radius: 4px;
+  --gold: #d9b46a;
+  --gold-hi: #f4e3b5;
+  --blood: #7a1d14;
+}
+[data-theme='medieval'] body { background: #0e0c0a; }
+[data-theme='medieval'] ::selection { background: var(--blood); }
+[data-theme='medieval'] .display { font-weight: 700; letter-spacing: 0.05em; line-height: 1; }
+[data-theme='medieval'] .script {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--gold);
+  text-shadow: 0 2px 0 #140d07, 0 0 18px rgba(217, 180, 106, 0.3);
+}
+
+/* 3D overlay, loading and fades */
+[data-theme='medieval'] .world-fallback { background: linear-gradient(180deg, #2a3446 0%, #6a6050 50%, #b99a6a 100%); }
+[data-theme='medieval'] .marker-letter {
+  border: 2px solid var(--gold);
+  background: #1a1410;
+  color: var(--gold-hi);
+  font-family: var(--font-display);
+  box-shadow: 0 0 12px rgba(217, 180, 106, 0.55);
+}
+[data-theme='medieval'] .loading-screen { background: radial-gradient(ellipse at 50% 60%, #3a2e1e 0%, #0e0c0a 70%); }
+[data-theme='medieval'] .loading-mark,
+[data-theme='medieval'] .logo-mark,
+[data-theme='medieval'] .portrait-initials {
+  font-weight: 900;
+  background: linear-gradient(180deg, var(--gold-hi) 0%, var(--gold) 50%, #7a5a2a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.35);
+  filter: drop-shadow(0 3px 0 rgba(0, 0, 0, 0.6)) drop-shadow(0 0 16px rgba(217, 180, 106, 0.25));
+}
+[data-theme='medieval'] .loading-mark { font-size: 110px; }
+[data-theme='medieval'] .loading-bar::after { background: var(--gold); box-shadow: none; }
+
+/* Panels and headings */
+[data-theme='medieval'] .stop-card {
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(32, 26, 20, 0.93), rgba(16, 13, 10, 0.93));
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.7), inset 0 0 40px rgba(0, 0, 0, 0.45), 0 30px 80px rgba(0, 0, 0, 0.5);
+  scrollbar-color: var(--gold) transparent;
+}
+[data-theme='medieval'] .stop-home .stop-card { background: none; box-shadow: none; }
+[data-theme='medieval'] .screen-title { text-shadow: 2px 2px 0 #0b0806; }
+[data-theme='medieval'] .neon-title {
+  background: linear-gradient(180deg, var(--gold-hi) 0%, var(--gold) 55%, #8a6428 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.7));
+}
+[data-theme='medieval'] .screen-sub {
+  color: #c9452f;
+  font-family: var(--font-script);
+  font-size: 19px;
+  font-style: italic;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  text-shadow: none;
+}
+[data-theme='medieval'] .lead,
+[data-theme='medieval'] .tab-panel { color: #e6dcc6; }
+
+/* Buttons, chips and highlights: blood red with a gold edge instead of neon pink */
+[data-theme='medieval'] .btn,
+[data-theme='medieval'] .icon-btn {
+  border-color: rgba(217, 180, 106, 0.45);
+  background: rgba(14, 12, 10, 0.72);
+}
+[data-theme='medieval'] .btn { border-radius: 2px; }
+[data-theme='medieval'] .btn:hover,
+[data-theme='medieval'] .icon-btn:hover { border-color: var(--gold); color: var(--gold-hi); box-shadow: 0 0 14px rgba(217, 180, 106, 0.3); }
+[data-theme='medieval'] .btn-primary,
+[data-theme='medieval'] .chip.active,
+[data-theme='medieval'] .nav-link.active,
+[data-theme='medieval'] .drawer-link:hover,
+[data-theme='medieval'] .drawer-link.active,
+[data-theme='medieval'] .district:hover,
+[data-theme='medieval'] .district.active,
+[data-theme='medieval'] .dot.active,
+[data-theme='medieval'] .pad:active {
+  background: var(--blood);
+  border-color: var(--gold);
+  color: #fff4dc;
+  box-shadow: 0 0 12px rgba(122, 29, 20, 0.55);
+}
+[data-theme='medieval'] .btn-primary:hover { background: #92261b; border-color: var(--gold-hi); }
+[data-theme='medieval'] .chip:hover,
+[data-theme='medieval'] .nav-link:hover { border-color: var(--gold); color: var(--gold-hi); }
+[data-theme='medieval'] .district svg { color: var(--gold); }
+
+/* HUD */
+[data-theme='medieval'] .hud-top { background: linear-gradient(180deg, rgba(14, 11, 8, 0.88), rgba(14, 11, 8, 0)); }
+[data-theme='medieval'] .brand {
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #4a3c2c, #15100c 75%);
+  color: var(--gold-hi);
+  font-size: 17px;
+  text-shadow: 0 2px 0 #000;
+  box-shadow: 0 0 0 2px #0b0806, 0 4px 14px rgba(0, 0, 0, 0.6);
+}
+[data-theme='medieval'] .hud-money {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  font-size: 28px;
+  color: var(--gold-hi);
+  text-shadow: 2px 2px 0 #140d07, -1px -1px 0 #140d07;
+}
+[data-theme='medieval'] .hud-coin { color: var(--gold); filter: drop-shadow(1px 1px 0 #000); }
+[data-theme='medieval'] .drawer { border-left-color: var(--gold); }
+[data-theme='medieval'] .drawer-link { border-radius: 2px; }
+
+/* Minimap: a brass-rimmed medallion over an old map */
+[data-theme='medieval'] .radar {
+  border: 3px solid #b89a5e;
+  background: #3b4a4e;
+  box-shadow: 0 0 0 3px #1a1410, 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+[data-theme='medieval'] .radar:hover { box-shadow: 0 0 0 3px #1a1410, 0 0 20px rgba(217, 180, 106, 0.5); }
+[data-theme='medieval'] .radar-north { background: var(--gold-hi); color: #1a1410; font-family: var(--font-display); }
+[data-theme='medieval'] .radar-player,
+[data-theme='medieval'] .player,
+[data-theme='medieval'] .player-legend { border-bottom-color: #b3261e; filter: drop-shadow(0 0 2px #000) drop-shadow(0 0 1px #f4e3b5); }
+[data-theme='medieval'] .blip { fill: #2a1f16; stroke: var(--gold-hi); }
+[data-theme='medieval'] .blip-text { fill: var(--gold-hi); }
+[data-theme='medieval'] .area-sub { font-family: var(--font-display); }
+
+/* Map overlay */
+[data-theme='medieval'] .map-overlay { background: rgba(10, 8, 6, 0.88); }
+[data-theme='medieval'] .map-frame { border: 1px solid var(--line); background: #3b4a4e; box-shadow: 0 0 0 4px #1a1410, 0 0 50px rgba(0, 0, 0, 0.6); }
+[data-theme='medieval'] .pin-marker { fill: var(--gold); stroke: #1a1410; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.6)); }
+[data-theme='medieval'] .pin-pulse { border-color: var(--gold); }
+[data-theme='medieval'] .pin-card { background: rgba(22, 17, 13, 0.94); }
+
+/* Title screen */
+[data-theme='medieval'] .home-main::before { border-color: rgba(217, 180, 106, 0.4); border-radius: 8px; background: linear-gradient(170deg, rgba(34, 26, 19, 0.88), rgba(14, 11, 8, 0.8)); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6), 0 24px 60px rgba(0, 0, 0, 0.5); }
+[data-theme='medieval'] .logo-mark { font-size: clamp(110px, 13vw, 200px); }
+[data-theme='medieval'] .logo-name { text-shadow: 3px 3px 0 #0b0806, var(--outline-dark); }
+[data-theme='medieval'] .tagline,
+[data-theme='medieval'] .drive-hint { color: #eadfc6; text-shadow: 2px 2px 0 #0b0806; }
+[data-theme='medieval'] .menu-item { font-size: clamp(21px, 2.1vw, 26px); text-shadow: 2px 2px 0 #0b0806; }
+[data-theme='medieval'] .menu-item:hover,
+[data-theme='medieval'] .menu-item:focus-visible,
+[data-theme='medieval'] .home-menu:not(:hover):not(:focus-within) .menu-item:first-child {
+  background: linear-gradient(90deg, rgba(122, 29, 20, 0.95) 0%, rgba(122, 29, 20, 0.7) 60%, rgba(122, 29, 20, 0) 100%);
+  box-shadow: inset 2px 0 0 var(--gold);
+  text-shadow: 1px 1px 0 #0b0806;
+}
+
+/* Sections */
+[data-theme='medieval'] .portrait { border-color: var(--line); background: linear-gradient(160deg, rgba(122, 29, 20, 0.3), rgba(40, 32, 24, 0.6) 55%, rgba(217, 180, 106, 0.15)); }
+[data-theme='medieval'] .info-icon { border-color: rgba(217, 180, 106, 0.4); background: rgba(122, 29, 20, 0.25); color: var(--gold); }
+[data-theme='medieval'] .skill-tile:hover,
+[data-theme='medieval'] a.contact-card:hover { border-color: var(--gold); box-shadow: 0 0 18px rgba(217, 180, 106, 0.25); }
+[data-theme='medieval'] .skill-glyph { color: var(--gold); filter: none; }
+[data-theme='medieval'] .mission-cat,
+[data-theme='medieval'] .tl-org { color: var(--gold); }
+[data-theme='medieval'] .cover { background: linear-gradient(170deg, #3a3024 0%, #1c1611 60%, #2a2016 100%); }
+[data-theme='medieval'] .cover-grid { display: none; }
+[data-theme='medieval'] .cover-sun { background: radial-gradient(circle at 40% 40%, #f4e9cf, #b9a780 70%); box-shadow: 0 0 40px rgba(244, 233, 207, 0.35); }
+[data-theme='medieval'] .cover-icon { filter: drop-shadow(0 2px 0 #000); }
+[data-theme='medieval'] .timeline::before { background: linear-gradient(180deg, var(--gold), rgba(217, 180, 106, 0.15)); box-shadow: none; }
+[data-theme='medieval'] .tl-node { border-color: var(--gold); background: #1a1410; color: var(--gold); box-shadow: 0 0 0 3px #0b0806; }
+[data-theme='medieval'] .badge { background: var(--gold); color: #1a1410; box-shadow: none; }
+[data-theme='medieval'] .highlights svg { color: var(--gold); }
+
+/* Free ride controls */
+[data-theme='medieval'] .drive-help { background: rgba(14, 12, 10, 0.82); border-color: var(--line); }
+[data-theme='medieval'] .pad { background: rgba(14, 12, 10, 0.7); }
+[data-theme='medieval'] .pad-gas { border-color: var(--gold); }
+[data-theme='medieval'] .pad-brake { border-color: #b3261e; }
+
+/* Cinzel runs wider than Anton: shrink the name and drop the script below it */
+[data-theme='medieval'] .logo-name { font-size: clamp(30px, 3.3vw, 50px); padding-top: 4%; }
+[data-theme='medieval'] .logo-script { margin: 0 -6px -40px 0; font-size: clamp(38px, 3.9vw, 60px); transform: rotate(-5deg); }
+[data-theme='medieval'] .tagline { margin-top: 30px; }
+@media (max-width: 759px) {
+  [data-theme='medieval'] .logo-name { font-size: 28px; }
+  [data-theme='medieval'] .logo-script { margin-bottom: -30px; font-size: 36px; }
+}
+[data-theme='medieval'] .theme-option.active { border-color: var(--gold); }
+[data-theme='medieval'] .theme-option-check { color: var(--gold); }
+[data-theme='medieval'] .theme-popover { border-color: var(--gold); background: linear-gradient(180deg, #221b15, #120f0c); }
+[data-theme='medieval'] .stop-close { border-color: var(--gold); color: var(--gold-hi); background: radial-gradient(circle at 35% 30%, #3a2e22, #120f0c 75%); }
+[data-theme='medieval'] .stop-close:hover { background: var(--blood); color: #fff4dc; box-shadow: 0 0 12px rgba(122, 29, 20, 0.6); }
+[data-theme='medieval'] .reopen-flag { border-radius: 4px; border-color: var(--gold); background: linear-gradient(180deg, #2a2119, #15110d); }
+[data-theme='medieval'] .reopen-icon { color: #b3261e; }
+@media (max-width: 520px) {
+  [data-theme='medieval'] .hud-money { font-size: 21px; gap: 5px; }
+}
+@media (max-width: 759px) {
+  [data-theme='medieval'] .hud-top > .brand { border-radius: 999px; }
+}
+[data-theme='medieval'] .speech { background: rgba(217, 180, 106, 0.08); }
+[data-theme='medieval'] .speech-line { font-family: var(--font-script); font-size: 20px; font-style: italic; }
+[data-theme='medieval'] .speech-name { color: var(--gold); }

@@ -1,0 +1,234 @@
+/* Galactic theme: military sci-fi. Hazard yellow on near-black, stencil lettering, cut-corner panels,
+   hazard-stripe trims and cold blue light. Only applies while <html data-theme="space">. */
+[data-theme='space'] {
+  --pink: #ffd100;
+  --pink-soft: #ffe14d;
+  --cyan: #4da3ff;
+  --violet: #4da3ff;
+  --bg: #07080b;
+  --panel: rgba(10, 12, 16, 0.9);
+  --panel-solid: #0c0e12;
+  --line: rgba(255, 209, 0, 0.38);
+  --line-soft: rgba(255, 255, 255, 0.08);
+  --text: #f1f3f5;
+  --muted: #a7afbb;
+  --font-display: 'Saira Stencil One', Impact, sans-serif;
+  --font-script: 'Saira Stencil One', Impact, sans-serif;
+  --font-ui: 'Chakra Petch', 'Segoe UI', sans-serif;
+  --glow-pink: 0 0 14px rgba(255, 209, 0, 0.45);
+  --outline-dark: 2px 2px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+  --radius: 2px;
+  --yellow: #ffd100;
+  --ink: #0b0c0f;
+  --blue: #4da3ff;
+  --hazard: repeating-linear-gradient(-45deg, #ffd100 0 10px, #111214 10px 20px);
+  --cut: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+}
+[data-theme='space'] body { background: #07080b; }
+[data-theme='space'] ::selection { background: var(--yellow); color: var(--ink); }
+[data-theme='space'] .display { letter-spacing: 0.04em; }
+[data-theme='space'] .script { color: var(--yellow); text-shadow: 0 0 16px rgba(255, 209, 0, 0.45), 2px 2px 0 #000; }
+
+/* Overlay, loading, fallback */
+[data-theme='space'] .world-fallback { background: radial-gradient(ellipse at 60% 30%, #2a3a7a 0%, #0a0c1c 55%, #030408 100%); }
+[data-theme='space'] .marker-letter {
+  border: 2px solid var(--blue);
+  border-radius: 2px;
+  background: #0b1424;
+  color: #cfe8ff;
+  box-shadow: 0 0 14px rgba(77, 163, 255, 0.7);
+}
+[data-theme='space'] .marker-name { color: #fff; }
+[data-theme='space'] .loading-screen { background: radial-gradient(ellipse at 50% 60%, #14204a 0%, #05060c 70%); }
+[data-theme='space'] .loading-mark,
+[data-theme='space'] .logo-mark,
+[data-theme='space'] .portrait-initials {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--yellow);
+  -webkit-text-stroke: 0;
+  filter: drop-shadow(0 0 18px rgba(255, 209, 0, 0.35)) drop-shadow(4px 4px 0 #000);
+}
+[data-theme='space'] .loading-mark { font-size: 120px; }
+[data-theme='space'] .loading-bar::after { background: var(--yellow); box-shadow: var(--glow-pink); }
+
+/* Panels: cut corners, a hazard-stripe trim along the top */
+[data-theme='space'] .stop-card {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: linear-gradient(180deg, rgba(14, 17, 23, 0.94), rgba(7, 8, 11, 0.94));
+  box-shadow: none;
+  clip-path: var(--cut);
+  scrollbar-color: var(--yellow) transparent;
+}
+[data-theme='space'] .stop-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 14px;
+  width: 140px;
+  height: 6px;
+  background: var(--hazard);
+}
+[data-theme='space'] .stop-home .stop-card { background: none; border: 0; clip-path: none; }
+[data-theme='space'] .stop-home .stop-card::before { display: none; }
+[data-theme='space'] .screen-title { text-shadow: 3px 3px 0 #000; }
+[data-theme='space'] .neon-title {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--yellow);
+  filter: drop-shadow(3px 3px 0 #000);
+}
+[data-theme='space'] .screen-sub { color: var(--blue); text-shadow: 0 0 10px rgba(77, 163, 255, 0.5); }
+[data-theme='space'] .panel,
+[data-theme='space'] .tab-panel,
+[data-theme='space'] .info-list,
+[data-theme='space'] .tl-card,
+[data-theme='space'] .contact-card,
+[data-theme='space'] .skill-tile,
+[data-theme='space'] .mission-card { border-radius: 0; }
+
+/* Buttons and highlights: black text on hazard yellow */
+[data-theme='space'] .btn,
+[data-theme='space'] .icon-btn { border-color: rgba(255, 255, 255, 0.3); background: rgba(8, 10, 14, 0.75); }
+[data-theme='space'] .btn { border-radius: 0; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
+[data-theme='space'] .icon-btn { border-radius: 2px; }
+[data-theme='space'] .btn:hover,
+[data-theme='space'] .icon-btn:hover { border-color: var(--yellow); color: var(--yellow); box-shadow: none; }
+[data-theme='space'] .btn-primary,
+[data-theme='space'] .chip.active,
+[data-theme='space'] .nav-link.active,
+[data-theme='space'] .drawer-link:hover,
+[data-theme='space'] .drawer-link.active,
+[data-theme='space'] .district:hover,
+[data-theme='space'] .district.active,
+[data-theme='space'] .pad:active {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: var(--ink);
+  box-shadow: var(--glow-pink);
+  text-shadow: none;
+}
+[data-theme='space'] .btn-primary:hover { background: var(--pink-soft); color: var(--ink); }
+[data-theme='space'] .chip { border-radius: 0; }
+[data-theme='space'] .chip:hover,
+[data-theme='space'] .nav-link:hover { border-color: var(--yellow); color: var(--yellow); }
+[data-theme='space'] .nav-link { border-radius: 0; }
+[data-theme='space'] .district:hover svg,
+[data-theme='space'] .district.active svg { color: var(--ink); }
+[data-theme='space'] .district svg { color: var(--yellow); }
+[data-theme='space'] .dot { border-radius: 0; transform: rotate(45deg); }
+[data-theme='space'] .dot.active { background: var(--yellow); border-color: var(--yellow); box-shadow: var(--glow-pink); }
+
+/* HUD */
+[data-theme='space'] .hud-top { background: linear-gradient(180deg, rgba(4, 5, 8, 0.9), rgba(4, 5, 8, 0)); }
+[data-theme='space'] .brand {
+  border-radius: 0;
+  background: var(--yellow);
+  color: var(--ink);
+  text-shadow: none;
+  box-shadow: 0 0 16px rgba(255, 209, 0, 0.4);
+  clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+[data-theme='space'] .hud-money {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  font-size: 30px;
+  color: #fff;
+  text-shadow: 2px 2px 0 #000;
+}
+[data-theme='space'] .hud-coin { color: var(--yellow); filter: drop-shadow(0 0 6px rgba(255, 209, 0, 0.6)); }
+[data-theme='space'] .drawer { border-left: 4px solid var(--yellow); }
+[data-theme='space'] .drawer-link { border-radius: 0; }
+
+/* Radar: tactical scope */
+[data-theme='space'] .radar {
+  border: 2px solid var(--yellow);
+  background: #060a16;
+  box-shadow: 0 0 0 3px #000, 0 0 18px rgba(255, 209, 0, 0.25);
+}
+[data-theme='space'] .radar:hover { box-shadow: 0 0 0 3px #000, 0 0 24px rgba(255, 209, 0, 0.5); }
+[data-theme='space'] .radar-north { background: var(--yellow); color: var(--ink); }
+[data-theme='space'] .radar-player,
+[data-theme='space'] .player,
+[data-theme='space'] .player-legend { border-bottom-color: var(--blue); filter: drop-shadow(0 0 5px var(--blue)) drop-shadow(0 0 1px #fff); }
+[data-theme='space'] .blip { fill: #0b1424; stroke: var(--blue); }
+[data-theme='space'] .blip-text { fill: #cfe8ff; }
+[data-theme='space'] .area-sub { color: var(--blue); }
+
+/* Map */
+[data-theme='space'] .map-overlay { background: rgba(3, 4, 8, 0.9); }
+[data-theme='space'] .map-frame { border: 1px solid var(--line); border-radius: 0; background: #060a16; box-shadow: 0 0 50px rgba(77, 163, 255, 0.15); clip-path: var(--cut); }
+[data-theme='space'] .pin-marker { fill: var(--yellow); stroke: #000; filter: drop-shadow(0 0 8px rgba(255, 209, 0, 0.7)); }
+[data-theme='space'] .pin-pulse { border-color: var(--yellow); }
+[data-theme='space'] .pin-card { border-radius: 0; background: rgba(6, 8, 12, 0.94); }
+[data-theme='space'] .pin:hover .pin-card,
+[data-theme='space'] .pin.active .pin-card { border-color: var(--yellow); box-shadow: var(--glow-pink); }
+
+/* Title screen */
+[data-theme='space'] .home-main::before { border-color: rgba(255, 209, 0, 0.35); border-radius: 0; background: linear-gradient(170deg, rgba(10, 12, 18, 0.9), rgba(4, 5, 9, 0.82)); clip-path: var(--cut); }
+[data-theme='space'] .home-main::after { content: ''; position: absolute; top: -22px; left: -10px; z-index: -1; width: 140px; height: 6px; background: var(--hazard); pointer-events: none; }
+@media (max-width: 759px) { [data-theme='space'] .home-main::after { top: -16px; left: 2px; } }
+[data-theme='space'] .logo-name { text-shadow: 4px 4px 0 #000; }
+[data-theme='space'] .tagline,
+[data-theme='space'] .drive-hint { color: #e6ebf2; text-shadow: 2px 2px 0 #000; }
+[data-theme='space'] .menu-item { text-shadow: 2px 2px 0 #000; border-radius: 0; }
+[data-theme='space'] .menu-item:hover,
+[data-theme='space'] .menu-item:focus-visible,
+[data-theme='space'] .home-menu:not(:hover):not(:focus-within) .menu-item:first-child {
+  background: var(--yellow);
+  color: var(--ink);
+  box-shadow: var(--glow-pink);
+  text-shadow: none;
+}
+
+/* Sections */
+[data-theme='space'] .portrait { border-color: var(--line); border-radius: 0; background: linear-gradient(160deg, rgba(77, 163, 255, 0.2), rgba(10, 12, 16, 0.6) 55%, rgba(255, 209, 0, 0.15)); }
+[data-theme='space'] .info-icon { border-radius: 0; border-color: rgba(255, 209, 0, 0.4); background: rgba(255, 209, 0, 0.1); color: var(--yellow); }
+[data-theme='space'] .skill-tile:hover,
+[data-theme='space'] a.contact-card:hover { border-color: var(--yellow); box-shadow: 0 0 18px rgba(255, 209, 0, 0.25); }
+[data-theme='space'] .skill-glyph { color: var(--blue); filter: drop-shadow(0 0 8px rgba(77, 163, 255, 0.6)); }
+[data-theme='space'] .mission-cat { color: var(--blue); }
+[data-theme='space'] .tl-org { color: var(--yellow); }
+[data-theme='space'] .cover { background: radial-gradient(ellipse at 50% 20%, #24346a 0%, #0a0e1c 60%, #04050a 100%); }
+[data-theme='space'] .cover-grid { background-color: rgba(4, 6, 12, 0.85); }
+[data-theme='space'] .timeline::before { background: var(--hazard); box-shadow: none; width: 4px; }
+[data-theme='space'] .tl-node { border-radius: 0; border-color: var(--yellow); background: #0b0c0f; color: var(--yellow); box-shadow: var(--glow-pink); transform: rotate(45deg); }
+[data-theme='space'] .tl-node > * { transform: rotate(-45deg); }
+[data-theme='space'] .badge { border-radius: 0; background: var(--yellow); color: var(--ink); box-shadow: none; }
+[data-theme='space'] .highlights svg { color: var(--yellow); }
+
+/* Free flight controls */
+[data-theme='space'] .drive-help { border-radius: 0; background: rgba(6, 8, 12, 0.85); border-color: var(--line); }
+[data-theme='space'] .pad { border-radius: 4px; background: rgba(6, 8, 12, 0.7); }
+[data-theme='space'] .pad-gas { border-color: var(--yellow); }
+[data-theme='space'] .pad-brake { border-color: #ff4a3a; }
+
+/* The stencil face runs wide: shrink the name, drop the script under it, tame the motto */
+[data-theme='space'] .logo-name { font-size: clamp(30px, 3.2vw, 50px); padding-top: 4%; }
+[data-theme='space'] .logo-script { margin: 0 -6px -40px 0; font-size: clamp(32px, 3.2vw, 50px); transform: rotate(-4deg); }
+[data-theme='space'] .tagline { margin-top: 30px; }
+[data-theme='space'] .motto { font-size: clamp(30px, 3vw, 46px); transform: rotate(-6deg); }
+@media (max-width: 759px) {
+  [data-theme='space'] .logo-name { font-size: 28px; }
+  [data-theme='space'] .logo-script { margin-bottom: -30px; font-size: 32px; }
+}
+[data-theme='space'] .theme-popover { border-radius: 0; clip-path: var(--cut); }
+[data-theme='space'] .theme-popover::before { content: ''; position: absolute; top: 0; left: 14px; width: 110px; height: 5px; background: var(--hazard); }
+[data-theme='space'] .theme-option { border-radius: 0; }
+[data-theme='space'] .theme-swatch { border-radius: 0; }
+[data-theme='space'] .stop-close { border-radius: 0; border-color: var(--yellow); color: var(--yellow); clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); }
+[data-theme='space'] .stop-close:hover { background: var(--yellow); color: var(--ink); box-shadow: none; }
+[data-theme='space'] .reopen-flag { border-radius: 0; border-color: var(--yellow); clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+[data-theme='space'] .reopen-icon { color: var(--yellow); }
+@media (max-width: 520px) {
+  [data-theme='space'] .hud-money { font-size: 20px; gap: 5px; }
+}
+[data-theme='space'] .speech { border-radius: 0; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+[data-theme='space'] .speech::after { display: none; }
+[data-theme='space'] .speech-name { color: var(--yellow); }
